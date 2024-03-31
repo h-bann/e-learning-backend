@@ -18,10 +18,11 @@ app.use(function (request, response, next) {
 });
 
 app.use("/courses", require("./routes/courses"));
-app.use("/users", require("./routes/add"));
-app.use("/users", require("./routes/delete"));
-app.use("/users", require("./routes/get"));
-app.use("/users", require("./routes/udpate"));
+app.use("/users", require("./routes/addUser"));
+app.use("/users", require("./routes/deleteUser"));
+app.use("/users", require("./routes/getUser"));
+app.use("/users", require("./routes/updateUser"));
+app.use("/users", require("./routes/loginUser"));
 
 const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
