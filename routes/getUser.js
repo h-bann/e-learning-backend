@@ -9,6 +9,7 @@ router.get("/", (request, response) => {
     return;
   }
   response.send(users);
+  console.log(users);
 });
 
 router.get("/:id", (request, response) => {
