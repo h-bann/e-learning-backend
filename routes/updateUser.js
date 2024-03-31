@@ -30,22 +30,17 @@ router.patch("/:id", (request, response) => {
     return;
   }
 
-  let message = "No changes made";
   if (email) {
     users[indexOfUser].email = email;
-    message = "Email updated";
   }
   if (username) {
     users[indexOfUser].username = username;
-    message = "Username updated";
   }
   if (password) {
     users[indexOfUser].password = sha256(password + "eLearningApp");
-    message = "Password updated";
   }
 
-  response.send({ code: 1, message: message });
-  console.log(users);
+  response.send({ code: 1, message: "Details successfully changed!" });
 });
 
 module.exports = router;
