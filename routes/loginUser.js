@@ -26,7 +26,11 @@ router.post("/login", (request, response) => {
     return;
   }
 
-  response.send({ code: 1, message: "Login successful" });
+  response.send({
+    code: 1,
+    id: user.id,
+    message: "Login successful",
+  });
 });
 
 module.exports = router;
