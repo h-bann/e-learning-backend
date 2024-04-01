@@ -17,7 +17,8 @@ app.use(function (request, response, next) {
   next();
 });
 
-app.use("/courses", require("./routes/courses"));
+app.use("/courses", require("./routes/getCourses"));
+app.use("/courses", require("./routes/enrolledCourses"));
 app.use("/users", require("./routes/addUser"));
 app.use("/users", require("./routes/deleteUser"));
 app.use("/users", require("./routes/getUser"));

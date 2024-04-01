@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.patch("/:id", (request, response) => {
   const { email, username, password } = request.body;
-  let { id } = request.params;
+  const { id } = request.params;
   const { users } = request;
 
   if (!(email || username || password)) {
