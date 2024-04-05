@@ -1,8 +1,9 @@
 const express = require("express");
 const sha256 = require("sha256");
+const { verifyToken } = require("../middleware");
 const router = express.Router();
 
-router.patch("/:id", (request, response) => {
+router.patch("/:id", verifyToken, (request, response) => {
   const { email, username, password } = request.body;
   const { id } = request.params;
   const { users } = request;
