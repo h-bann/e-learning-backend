@@ -1,4 +1,5 @@
 const express = require("express");
+const { verifyToken } = require("../middleware");
 const router = express.Router();
 
 router.get("/", (request, response) => {
@@ -9,34 +10,10 @@ router.get("/", (request, response) => {
     return;
   }
   response.send(users);
-  console.log(users);
 });
 
-router.get("/:id", (request, response) => {
-  let { id } = request.params;
-  let { users } = request;
-
-  const idAsNumber = Number(id);
-
-  //   check that user ID exists and is a number
-  if (!id || isNaN(idAsNumber)) {
-    response.send("Not a valid ID number");
-    return;
-  }
-
-  //   check that user ID being checked matches one in database
-  const indexOfUser = users.findIndex((item) => {
-    return item.id === idAsNumber;
-  });
-
-  //   if not in database, send error message
-  if (indexOfUser === -1) {
-    response.send("Account not found");
-    return;
-  }
-
-  //   return user at that particular index
-  response.send({ code: 1, user: users[indexOfUser] });
+router.get("/", verifyToken, (request, response) => {
+  response.send({ code: 1, user: request.verifiedUser });
 });
 
 module.exports = router;

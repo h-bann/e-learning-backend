@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sha256 = require("sha256");
+const { random } = require("../utils");
 
 router.post("/login", (request, response) => {
   let { username, password } = request.body;
@@ -26,10 +27,14 @@ router.post("/login", (request, response) => {
     return;
   }
 
+  const token = random() + random();
+  user.token ? user.token.push(token) : (user.token = [token]);
+
   response.send({
     code: 1,
     id: user.id,
     message: "Login successful",
+    token: token,
   });
 });
 
