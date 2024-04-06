@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const courses = require("../courseContent.json");
+const { verifyToken } = require("../middleware");
 
 router.get("/", (request, response) => {
   const { id, title } = request.query;

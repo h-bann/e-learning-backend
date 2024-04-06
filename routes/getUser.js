@@ -12,7 +12,7 @@ router.get("/", (request, response) => {
   response.send(users);
 });
 
-router.get("/", verifyToken, (request, response) => {
+router.get("/getUser", verifyToken, (request, response) => {
   response.send({ code: 1, user: request.verifiedUser });
 });
 
