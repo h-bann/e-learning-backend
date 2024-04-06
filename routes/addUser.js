@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sha256 = require("sha256");
+const { random } = require("../utils");
 
 router.post("/", (request, response) => {
   let { email, username, password } = request.body;
@@ -36,9 +37,22 @@ router.post("/", (request, response) => {
     return;
   }
 
+  const token = random() + random();
+  // user.token ? user.token.push(token) : (user.token = [token]);
+
   lastAccountId.value = lastAccountId.value + 1;
-  users.push({ email, username, password, id: lastAccountId.value });
-  response.send({ code: 1, id: lastAccountId.value });
+  users.push({
+    email,
+    username,
+    password,
+    id: lastAccountId.value,
+    token: [token],
+  });
+  response.send({
+    code: 1,
+    message: "Accoutn created",
+    token: token,
+  });
 });
 
 module.exports = router;
