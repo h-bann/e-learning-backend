@@ -1,10 +1,11 @@
 const express = require("express");
 const { verifyToken } = require("../middleware");
+const mySQL = require("../mysql/driver");
+const { deleteUser } = require("../mysql/queries");
 const router = express.Router();
 
-router.delete("/delete", verifyToken, (request, response) => {
-  let { users } = request;
-  users.splice(request.verifiedUser, 1);
+router.delete("/delete", async (request, response) => {
+  await mySQL(deleteUser(request.headers.token));
   response.send({ code: 1, message: "Account deleted" });
 });
 
