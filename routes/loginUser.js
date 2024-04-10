@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const sha256 = require("sha256");
 const { random } = require("../utils");
+const mySQL = require("../mysql/driver");
 
-router.post("/login", (request, response) => {
+router.post("/login", async (request, response) => {
   let { username, password } = request.body;
-  let { users } = request;
 
   if (!username) {
     response.send({ code: 0, message: "Username missing" });
@@ -18,24 +18,27 @@ router.post("/login", (request, response) => {
 
   password = sha256(password + "eLearningApp");
 
-  const user = users.find((item) => {
-    return item.username === username && item.password === password;
-  });
+  // search database for matching username and password
+  const results = await mySQL(`SELECT * FROM users
+            WHERE username LIKE "${username}" AND password LIKE "${password}";`);
 
-  if (!user) {
-    response.send({ code: 0, message: "Username or password incorrect" });
+  // if found: create token, insert created token into sessions table and associate it with user_id
+  if (results.length > 0) {
+    const token = random() + random();
+    await mySQL(`INSERT INTO sessions
+                  (user_id, token)
+                    VALUES
+                      (${results[0].user_id}, "${token}");`);
+
+    response.send({
+      code: 1,
+      message: "Login successful",
+      token: token,
+    });
     return;
   }
 
-  const token = random() + random();
-  user.token ? user.token.push(token) : (user.token = [token]);
-
-  response.send({
-    code: 1,
-    id: user.id,
-    message: "Login successful",
-    token: token,
-  });
+  response.send({ code: 0, message: "Wrong username or password" });
 });
 
 module.exports = router;
