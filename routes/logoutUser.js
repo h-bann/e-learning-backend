@@ -1,13 +1,10 @@
 const express = require("express");
-const { verifyToken } = require("../middleware");
+const mySQL = require("../mysql/driver");
+const { deleteToken } = require("../mysql/queries");
 const router = express.Router();
 
-router.delete("/logout", verifyToken, (request, response) => {
-  request.verifiedUser.token.splice(
-    request.verifiedUser.token.indexOf(request.headers.token),
-    1
-  );
-
+router.delete("/logout", async (request, response) => {
+  await mySQL(deleteToken(request.headers.token));
   response.send({ code: 1, message: "Logout successful" });
 });
 

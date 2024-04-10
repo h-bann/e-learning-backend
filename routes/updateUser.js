@@ -1,42 +1,29 @@
 const express = require("express");
 const sha256 = require("sha256");
-const { verifyToken } = require("../middleware");
+const mySQL = require("../mysql/driver");
+const { updateUserDetails } = require("../mysql/queries");
 const router = express.Router();
 
-router.patch("/update", verifyToken, (request, response) => {
+router.patch("/update", async (request, response) => {
   const { email, username, password } = request.body;
-  const { verifiedUser } = request;
+  const { token } = request.headers;
+  // const { verifiedUser } = request;
 
   if (!(email || username || password)) {
     response.send({ code: 0, message: "Missing data" });
   }
 
-  // const idAsNumber = Number(id);
-
-  // //   check that user ID exists and is a number
-  // if (!id || isNaN(idAsNumber)) {
-  //   response.send("Not a valid ID number");
-  //   return;
-  // }
-
-  // //   check that user ID being checked matches one in database
-  // const indexOfUser = users.findIndex((item) => {
-  //   return item.id === idAsNumber;
-  // });
-
-  // //   if not in database, send error message
-  // if (indexOfUser === -1) {
-  //   response.send("Account not found");
-  //   return;
-  // }
   if (email) {
-    verifiedUser.email = email;
+    console.log(updateUserDetails("email", email, token));
+    await mySQL(updateUserDetails("email", email, token));
   }
   if (username) {
-    verifiedUser.username = username;
+    await mySQL(updateUserDetails("username", username, token));
   }
   if (password) {
-    verifiedUser.password = sha256(password + "eLearningApp");
+    await mySQL(
+      updateUserDetails("password", sha256(password + "eLearningApp"), token)
+    );
   }
 
   response.send({ code: 1, message: "Details successfully changed!" });

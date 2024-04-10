@@ -3,6 +3,7 @@ const router = express.Router();
 const sha256 = require("sha256");
 const { random } = require("../utils");
 const mySQL = require("../mysql/driver");
+const { addUser, insertToken } = require("../mysql/queries");
 
 router.post("/", async (request, response) => {
   let { email, username, password } = request.body;
@@ -26,16 +27,8 @@ router.post("/", async (request, response) => {
   const token = random() + random();
 
   try {
-    const result = await mySQL(`INSERT INTO users
-                  (email, username, password)
-                    VALUES
-                      ("${email}", "${username}", "${password}");`);
-
-    await mySQL(`INSERT INTO sessions
-                  (user_id, token)
-                    VALUES
-                      (${result.insertId}, "${token}");`);
-
+    const results = await mySQL(addUser(email, username, password));
+    await mySQL(insertToken(results.insertId, token));
     response.send({
       code: 1,
       message: "Account created",
