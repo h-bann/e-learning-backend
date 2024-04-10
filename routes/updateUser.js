@@ -7,14 +7,13 @@ const router = express.Router();
 router.patch("/update", async (request, response) => {
   const { email, username, password } = request.body;
   const { token } = request.headers;
-  // const { verifiedUser } = request;
 
-  if (!(email || username || password)) {
+  if (!email || !username || !password) {
     response.send({ code: 0, message: "Missing data" });
+    return;
   }
 
   if (email) {
-    console.log(updateUserDetails("email", email, token));
     await mySQL(updateUserDetails("email", email, token));
   }
   if (username) {
