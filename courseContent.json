@@ -10,7 +10,7 @@
       {
         "id": 1,
         "moduleTitle": "Session Overview",
-        "content": [
+        "moduleContent": [
           { "type": "mainHeading", "content": "Learning Objectives" },
           {
             "type": "paragraph",
@@ -36,7 +36,7 @@
       {
         "id": 2,
         "moduleTitle": "Introduction",
-        "content": [
+        "moduleContent": [
           { "type": "mainHeading", "content": "Overview" },
           {
             "type": "paragraph",
@@ -128,7 +128,7 @@
       {
         "id": 3,
         "moduleTitle": "Procedure for Resuscitation",
-        "content": [
+        "moduleContent": [
           { "type": "mainHeading", "content": "Procedure for Resuscitation" },
           {
             "type": "paragraph",
@@ -278,7 +278,7 @@
       {
         "id": 4,
         "moduleTitle": "Adult Basic Life Support",
-        "content": [
+        "moduleContent": [
           { "type": "mainHeading", "content": "Adult Basic Life Support" },
           {
             "type": "subHeading",
@@ -493,31 +493,44 @@
     "modules": [
       {
         "id": 1,
-        "title": "Learning Objectives",
-        "content": [
-          "Learn to choose ingredients",
-          "Learn to use the ingredients"
+        "moduleTitle": "Learning Objectives",
+        "moduleContent": [
+          {
+            "type": "list",
+            "content": [
+              "Learn to choose ingredients",
+              "Learn to use the ingredients"
+            ]
+          }
         ]
       },
       {
         "id": 2,
-        "title": "Session Overview",
-        "content": "Cooking test content 1"
+        "moduleTitle": "Session Overview",
+        "moduleContent": [
+          { "type": "paragraph", "content": "Cooking test content 1" }
+        ]
       },
       {
         "id": 3,
-        "title": "What do you need",
-        "content": "Cooking test content 2"
+        "moduleTitle": "What do you need",
+        "moduleContent": [
+          { "type": "paragraph", "content": "Cooking test content 2" }
+        ]
       },
       {
         "id": 4,
-        "title": "Let's cook",
-        "content": "Cooking test content 3 "
+        "moduleTitle": "Let's cook",
+        "moduleContent": [
+          { "type": "paragraph", "content": "Cooking test content 3" }
+        ]
       },
       {
         "id": 5,
-        "title": "Let us eat",
-        "content": "Cooking test content 4"
+        "moduleTitle": "Let us eat",
+        "moduleContent": [
+          { "type": "paragraph", "content": "Cooking test content 4" }
+        ]
       }
     ]
   }
