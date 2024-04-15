@@ -5,6 +5,12 @@ function addUser(email, username, password) {
                 ("${email}", "${username}", "${password}");`;
 }
 
+function getUser(token) {
+  return `SELECT * FROM users
+            JOIN sessions on users.user_id = sessions.user_id
+            WHERE token LIKE "${token}";`;
+}
+
 function insertToken(user_id, token) {
   return `INSERT INTO sessions
             (user_id, token)
@@ -22,6 +28,11 @@ function checkLoginDetails(username, password) {
             WHERE username LIKE "${username}" AND password LIKE "${password}";`;
 }
 
+// function checkToken(token) {
+//   return `SELECT * FROM sessions
+//                 WHERE token LIKE "${token}";`;
+// }
+
 function updateUserDetails(key, value, token) {
   return `UPDATE users
             JOIN sessions on users.user_id = sessions.user_id
@@ -37,8 +48,10 @@ function deleteUser(token) {
 
 module.exports = {
   addUser,
+  getUser,
   insertToken,
   checkLoginDetails,
+  // checkToken,
   updateUserDetails,
   deleteUser,
   deleteToken,

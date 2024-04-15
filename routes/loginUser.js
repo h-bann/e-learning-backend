@@ -21,7 +21,6 @@ router.post("/login", async (request, response) => {
 
   // search database for matching username and password
   const results = await mySQL(checkLoginDetails(username, password));
-  console.log(results);
 
   // if found: create token, insert created token into sessions table and associate it with user_id
   if (results.length > 0) {
