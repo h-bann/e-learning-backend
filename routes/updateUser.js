@@ -1,7 +1,7 @@
 const express = require("express");
 const sha256 = require("sha256");
 const mySQL = require("../mysql/driver");
-const { updateUserDetails, checkToken, getUser } = require("../mysql/queries");
+const { updateUserDetails, getUser } = require("../mysql/queries");
 const router = express.Router();
 
 router.patch("/update", async (request, response) => {
