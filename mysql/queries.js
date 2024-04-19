@@ -35,7 +35,7 @@ function checkLoginDetails(username, password) {
 
 function updateUserDetails(key, value, token) {
   return `UPDATE users
-            JOIN sessions on users.user_id = sessions.user_id
+            JOIN sessions ON users.user_id = sessions.user_id
                 SET ${key} = "${value}"
                     WHERE sessions.token LIKE "${token}";`;
 }
@@ -44,6 +44,16 @@ function deleteUser(token) {
   return `DELETE users, sessions FROM users
             JOIN sessions ON users.user_id = sessions.user_id
                 WHERE token LIKE "${token}";`;
+}
+
+function userEnrolledCourses(user_id, course_title, token) {
+  return `UPDATE users
+            JOIN sessions ON users.user_id = sessions.user_id;
+                INSERT INTO enrolled_courses
+                  (user_id, course_title)
+                      VALUES
+                        (${user_id}, "${course_title}")
+                          WHERE sessions.token LIKE "${token}";`;
 }
 
 module.exports = {
@@ -55,4 +65,5 @@ module.exports = {
   updateUserDetails,
   deleteUser,
   deleteToken,
+  userEnrolledCourses,
 };
