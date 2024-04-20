@@ -46,14 +46,30 @@ function deleteUser(token) {
                 WHERE token LIKE "${token}";`;
 }
 
-function userEnrolledCourses(user_id, course_title, token) {
-  return `UPDATE users
-            JOIN sessions ON users.user_id = sessions.user_id;
-                INSERT INTO enrolled_courses
-                  (user_id, course_title)
-                      VALUES
-                        (${user_id}, "${course_title}")
-                          WHERE sessions.token LIKE "${token}";`;
+function getCourse(course_id) {
+  return `SELECT course_title AS courseTitle FROM courses
+            WHERE id = ${course_id};`;
+}
+
+function getCourses() {
+  return `SELECT * FROM courses;`;
+}
+
+function getModules(course_id) {
+  return `SELECT * FROM modules
+            WHERE course_id = ${course_id};`;
+}
+
+function getContent(module_id) {
+  return `SELECT * FROM content 
+            WHERE module_id = ${module_id};`;
+}
+
+function userEnrolledCourses(user_id, course_title) {
+  return `INSERT INTO enrolled_courses
+            (user_id, course_title)
+              VALUES
+                (${user_id}, "${course_title}");`;
 }
 
 module.exports = {
@@ -65,5 +81,9 @@ module.exports = {
   updateUserDetails,
   deleteUser,
   deleteToken,
+  getCourses,
+  getCourse,
+  getModules,
+  getContent,
   userEnrolledCourses,
 };
