@@ -9,15 +9,13 @@ router.patch("/enrolled", async (request, response) => {
   const { token } = request.headers;
   const user = await mySQL(getUser(token));
 
-  // console.log(user[0].user_id);
-  // console.log(request.body.course_title);
-
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
 
   await mySQL(userEnrolledCourses(user[0].user_id, request.body.course_title));
+  response.send({ code: 1, message: "Enrolled on course" });
   return;
 
   // if no enrolledCourses, create enrolled courses array and add body
