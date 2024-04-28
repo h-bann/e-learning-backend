@@ -14,14 +14,9 @@ router.patch("/update", async (request, response) => {
       response.send({ code: 0, message: "Missing token" });
       return;
     }
-    // if no email, username or password - error
-    if (!(email || username || password)) {
-      response.send({ code: 0, message: "Missing data" });
-      return;
-    }
 
     // return user where token matches
-    const user = await mySQL(getUser(token));
+    const user = await mySQL(getUser(), [token]);
 
     // if no user returned - error
     if (user < 1) {
@@ -41,9 +36,13 @@ router.patch("/update", async (request, response) => {
     // if email or username entered, change database record
     if (email) {
       await mySQL(updateUserDetails("email", email, token));
+      response.send({ code: 1, message: "Email change successful" });
+      return;
     }
     if (username) {
       await mySQL(updateUserDetails("username", username, token));
+      response.send({ code: 1, message: "Username change successful" });
+      return;
     }
     // if password entered, sha password
     if (password) {
@@ -55,8 +54,15 @@ router.patch("/update", async (request, response) => {
       }
       // else, change database record
       await mySQL(updateUserDetails("password", password, token));
+      response.send({ code: 1, message: "Password change successful" });
+      return;
     }
-    response.send({ code: 1, message: "Details successfully changed!" });
+
+    // if no email, username or password - error
+    if (!(email || username || password)) {
+      response.send({ code: 0, message: "Missing data" });
+      return;
+    }
   } catch (error) {
     response.send({ code: 0, message: "Error updating details" });
   }

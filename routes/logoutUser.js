@@ -4,7 +4,13 @@ const { deleteToken } = require("../mysql/queries");
 const router = express.Router();
 
 router.delete("/logout", async (request, response) => {
-  await mySQL(deleteToken(request.headers.token));
+  const { token } = request.headers;
+  if (!token) {
+    response.send({ code: 0, message: "Invalid token" });
+    return;
+  }
+
+  await mySQL(deleteToken(), [request.headers.token]);
   response.send({ code: 1, message: "Logout successful" });
 });
 

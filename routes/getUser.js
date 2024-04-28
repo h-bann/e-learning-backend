@@ -15,7 +15,7 @@ router.get("/", (request, response) => {
 
 router.get("/getUser", async (request, response) => {
   const { token } = request.headers;
-  const results = await mySQL(getUser(token));
+  const results = await mySQL(getUser(), [token]);
 
   if (results.length > 0) {
     response.send({

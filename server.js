@@ -11,12 +11,6 @@ let lastAccountId = { value: 10000 };
 
 app.use(express.json());
 
-app.use(function (request, response, next) {
-  request.users = users;
-  request.lastAccountId = lastAccountId;
-  next();
-});
-
 app.use("/courses", require("./routes/getCourses"));
 app.use("/courses", require("./routes/enrolledCourses"));
 app.use("/users", require("./routes/addUser"));

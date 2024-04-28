@@ -20,12 +20,12 @@ router.post("/login", async (request, response) => {
   password = sha256(password + "eLearningApp");
 
   // search database for matching username and password
-  const results = await mySQL(checkLoginDetails(username, password));
+  const results = await mySQL(checkLoginDetails(), [username, password]);
 
   // if found: create token, insert created token into sessions table and associate it with user_id
-  if (results.length > 0) {
+  if (results.length === 1) {
     const token = random() + random();
-    await mySQL(insertToken(results[0].user_id, token));
+    await mySQL(insertToken(), [results[0].user_id, token]);
 
     response.send({
       code: 1,

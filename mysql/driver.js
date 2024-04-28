@@ -2,23 +2,32 @@ const mysql = require("mysql");
 // const data = require("../courseContent.json");
 // const { connect } = require("../routes/enrolledCourses");
 
+// ! When using local database
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "elearning-app",
+//   multipleStatements: false
+// });
+
+// ! When using cloud database
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "elearning-app",
+  host: "we-learn.uk",
+  user: "welearnu_my-elearning-app",
+  password: "nqumlqPVR{[g",
+  database: "welearnu_my-elearning-app",
 });
 
 connection.connect();
 
-function mySQL(query) {
+function mySQL(query, params) {
   return new Promise((resolve, reject) => {
-    connection.query(query, (error, results) => {
+    connection.query(query, params, (error, results) => {
       if (error) {
         reject(error);
         return;
       }
-
       resolve(results);
     });
   });

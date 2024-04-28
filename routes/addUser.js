@@ -27,7 +27,7 @@ router.post("/", async (request, response) => {
   const token = random() + random();
 
   try {
-    const results = await mySQL(addUser(email, username, password));
+    const results = await mySQL(addUser(), [email, username, password]);
     await mySQL(insertToken(results.insertId, token));
     response.send({
       code: 1,
@@ -36,7 +36,7 @@ router.post("/", async (request, response) => {
     });
   } catch (error) {
     console.log(error);
-    response.send({ code: 0, message: "Duplicate account" });
+    response.send({ code: 0, message: error });
   }
 });
 
