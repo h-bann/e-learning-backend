@@ -5,10 +5,6 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.static("public"));
 
-const users = [];
-// start user IDs at 10000
-let lastAccountId = { value: 10000 };
-
 app.use(express.json());
 
 app.use("/courses", require("./routes/getCourses"));
