@@ -5,7 +5,7 @@ const { random } = require("../utils");
 const mySQL = require("../mysql/driver");
 const { addUser, insertToken } = require("../mysql/queries");
 
-router.post("/", async (request, response) => {
+router.post("/addUser", async (request, response) => {
   let { email, username, password } = request.body;
 
   // *  check that there is an email, username or password
@@ -28,7 +28,7 @@ router.post("/", async (request, response) => {
 
   try {
     const results = await mySQL(addUser(), [email, username, password]);
-    await mySQL(insertToken(results.insertId, token));
+    await mySQL(insertToken(), [results.insertId, token]);
     response.send({
       code: 1,
       message: "Account created",
@@ -36,7 +36,7 @@ router.post("/", async (request, response) => {
     });
   } catch (error) {
     console.log(error);
-    response.send({ code: 0, message: error });
+    response.send({ code: 0, message: "There was an error, sorry." });
   }
 });
 
