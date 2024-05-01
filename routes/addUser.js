@@ -4,6 +4,8 @@ const sha256 = require("sha256");
 const { random } = require("../utils");
 const mySQL = require("../mysql/driver");
 const { addUser, insertToken } = require("../mysql/queries");
+const { sendEmail } = require("../email/nodemailer");
+const { welcomeEmail } = require("../email/templates");
 
 router.post("/addUser", async (request, response) => {
   let { email, username, password } = request.body;
@@ -29,6 +31,9 @@ router.post("/addUser", async (request, response) => {
   try {
     const results = await mySQL(addUser(), [email, username, password]);
     await mySQL(insertToken(), [results.insertId, token]);
+
+    sendEmail(welcomeEmail(email), undefined, [{ email, name: "Test" }]);
+
     response.send({
       code: 1,
       message: "Account created",
