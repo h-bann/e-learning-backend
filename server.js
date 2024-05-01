@@ -1,8 +1,10 @@
 const express = require("express");
+const helmet = require("helmet");
 const app = express();
 const cors = require("cors");
 
 app.use(cors());
+app.use(helmet());
 app.use(express.static("public"));
 
 app.use(express.json());
