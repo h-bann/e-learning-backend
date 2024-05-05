@@ -13,10 +13,10 @@ const mysql = require("mysql");
 
 // ! When using cloud database
 const connection = mysql.createConnection({
-  host: "we-learn.uk",
-  user: "welearnu_my-elearning-app",
-  password: "nqumlqPVR{[g",
-  database: "welearnu_my-elearning-app",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 
 connection.connect();
