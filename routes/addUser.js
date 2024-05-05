@@ -40,7 +40,14 @@ router.post("/addUser", async (request, response) => {
       token: token,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.code);
+    if ((error.code = "Er_DUP_ENTRY")) {
+      response.send({
+        code: 0,
+        message: "This username or email is already taken",
+      });
+      return;
+    }
     response.send({ code: 0, message: "There was an error, sorry." });
   }
 });
