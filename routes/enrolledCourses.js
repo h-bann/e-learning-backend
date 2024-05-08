@@ -29,7 +29,7 @@ router.patch("/enrolled", async (request, response) => {
     }
   }
 
-  await mySQL(addEnrolledCourses(user[0].user_id, course_title, course_id));
+  await mySQL(addEnrolledCourses(), [user[0].user_id, course_title, course_id]);
   response.send({ code: 1, message: "Enrolled on course" });
 });
 
