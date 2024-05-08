@@ -27,4 +27,13 @@ const userDetailsUpdate = () => {
   };
 };
 
-module.exports = { welcomeEmail, accountDelete };
+const contactForm = (message) => {
+  return {
+    subject: `We-Learn enquiry email`,
+    content: `<div>
+              <p>${message}</p>
+              </div>`,
+  };
+};
+
+module.exports = { welcomeEmail, accountDelete, contactForm };
