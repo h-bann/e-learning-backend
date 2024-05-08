@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 function sendEmail(payload, sender, to) {
   const mailOptions = {
-    from: `help@we-learn.uk`,
+    from: sender === undefined ? "help@we-learn.uk" : sender,
     to: to[0].email,
     subject: payload.subject,
     html: payload.content,
