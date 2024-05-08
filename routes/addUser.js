@@ -6,6 +6,7 @@ const mySQL = require("../mysql/driver");
 const { addUser, insertToken } = require("../mysql/queries");
 const { sendEmail } = require("../email/nodemailer");
 const { welcomeEmail } = require("../email/templates");
+const sanitizeHTML = require("sanitize-html"); // prevent cross-site scripting attack by cleaning html
 
 router.post("/addUser", async (request, response) => {
   let { email, username, password } = request.body;
@@ -32,7 +33,9 @@ router.post("/addUser", async (request, response) => {
     const results = await mySQL(addUser(), [email, username, password]);
     await mySQL(insertToken(), [results.insertId, token]);
 
-    sendEmail(welcomeEmail(email), undefined, [{ email, name: "Test" }]);
+    const cleanedEmail = sanitizeHTML(email);
+
+    sendEmail(welcomeEmail(cleanedEmail), undefined, [{ email, name: "Test" }]);
 
     response.send({
       code: 1,
