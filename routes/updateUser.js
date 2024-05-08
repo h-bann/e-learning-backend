@@ -35,12 +35,12 @@ router.patch("/update", async (request, response) => {
 
     // if email or username entered, change database record
     if (email) {
-      await mySQL(updateUserDetails("email", email, token));
+      await mySQL(updateUserDetails(), ["email", email, token]);
       response.send({ code: 1, message: "Email change successful" });
       return;
     }
     if (username) {
-      await mySQL(updateUserDetails("username", username, token));
+      await mySQL(updateUserDetails(), ["username", username, token]);
       response.send({ code: 1, message: "Username change successful" });
       return;
     }
@@ -53,7 +53,7 @@ router.patch("/update", async (request, response) => {
         return;
       }
       // else, change database record
-      await mySQL(updateUserDetails("password", password, token));
+      await mySQL(updateUserDetails(), ["password", password, token]);
       response.send({ code: 1, message: "Password change successful" });
       return;
     }

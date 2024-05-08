@@ -30,7 +30,7 @@ router.get("/getCourse/:id", async (request, response) => {
   course[0].modules = modules;
 
   for (let i = 0; i < course[0].modules.length; i++) {
-    const content = await mySQL(getContent(course[0].modules[i].id));
+    const content = await mySQL(getContent(), [course[0].modules[i].id]);
 
     course[0].modules[i].content = content;
   }
