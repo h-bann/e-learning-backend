@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { sendEmail } = require("../email/nodemailer");
 const { contactForm } = require("../email/templates");
+const sanitizeHTML = require("sanitize-html"); // prevent cross-site scripting attack by cleaning html
 
 router.post("/", async (request, response) => {
   const { name, email, message } = request.body;
@@ -19,7 +20,11 @@ router.post("/", async (request, response) => {
     return;
   }
 
-  sendEmail(contactForm(message), email, [{ email: "help@we-learn.uk" }]);
+  const cleanedMessage = sanitizeHTML(message, { allowedTags: ["div", "p"] });
+
+  sendEmail(contactForm(cleanedMessage), email, [
+    { email: "help@we-learn.uk" },
+  ]);
 
   response.send({ code: 1, message: "Message sent" });
 });
