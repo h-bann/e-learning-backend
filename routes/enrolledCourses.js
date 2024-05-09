@@ -4,6 +4,7 @@ const {
   addEnrolledCourses,
   getUser,
   getEnrolledCourses,
+  deleteEnrolledCourse,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -44,25 +45,12 @@ router.get("/getEnrolledCourses", async (request, response) => {
   response.send({ code: 1, enrolledCourses: enrolledCourses });
 });
 
-router.delete("/deleteEnrolled/:courseId", verifyToken, (request, response) => {
+router.delete("/deleteEnrolled/:courseId", async (request, response) => {
+  const { token } = request.headers;
   const { courseId } = request.params;
-  const { verifiedUser } = request;
 
-  const courseNumber = Number(courseId);
-
-  const courseIndex = verifiedUser.enrolledCourses.findIndex((item) => {
-    return item.id === courseNumber;
-  });
-
-  if (courseIndex === -1) {
-    response.send("Course not found");
-    return;
-  }
-  if (courseIndex >= 0) {
-    verifiedUser.enrolledCourses.splice(courseIndex, 1);
-    response.send({ code: 1, message: "User has unenrolled from course" });
-    return;
-  }
+  await mySQL(deleteEnrolledCourse(), [token, courseId]);
+  response.send({ code: 1, message: "Successfully left course" });
 });
 
 module.exports = router;

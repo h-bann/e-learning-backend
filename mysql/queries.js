@@ -36,9 +36,10 @@ function updateUserDetails(key, value, token) {
 }
 
 function deleteUser() {
-  return `DELETE users, sessions FROM users
-            JOIN sessions ON users.user_id = sessions.user_id
-                WHERE token LIKE ?;`;
+  return `DELETE users.*, sessions.*, enrolled_courses.* FROM users
+            JOIN sessions on users.user_id = sessions.user_id
+            JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+              WHERE token LIKE ?;`;
 }
 
 function getCourse() {
@@ -55,22 +56,29 @@ function getModules() {
             WHERE course_id = ?;`;
 }
 
-function getContent(module_id) {
+function getContent() {
   return `SELECT * FROM content 
-            WHERE module_id = ${module_id};`;
+            WHERE module_id = ?;`;
 }
 
-function addEnrolledCourses(user_id, course_title, course_id) {
+function addEnrolledCourses() {
   return `INSERT INTO enrolled_courses
             (user_id, course_title, course_id)
               VALUES
-                (${user_id}, "${course_title}", "${course_id}");`;
+                (?, ?, ?);`;
 }
 
 function getEnrolledCourses() {
   return `SELECT courses.id, courses.course_title, courses.image, courses.more_info, courses.instructions FROM courses
             JOIN enrolled_courses ON courses.id = enrolled_courses.course_id
               ;`;
+}
+
+function deleteEnrolledCourse() {
+  return `DELETE enrolled_courses.* FROM users
+            JOIN sessions on users.user_id = sessions.user_id
+            JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+              WHERE token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
 }
 
 module.exports = {
@@ -88,4 +96,5 @@ module.exports = {
   getContent,
   addEnrolledCourses,
   getEnrolledCourses,
+  deleteEnrolledCourse,
 };
