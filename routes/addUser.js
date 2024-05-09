@@ -35,7 +35,7 @@ router.post("/addUser", async (request, response) => {
 
     const cleanedEmail = sanitizeHTML(email);
 
-    sendEmail(welcomeEmail(cleanedEmail), undefined, [{ email, name: "Test" }]);
+    // sendEmail(welcomeEmail(cleanedEmail), undefined, [{ email, name: "Test" }]);
 
     response.send({
       code: 1,
