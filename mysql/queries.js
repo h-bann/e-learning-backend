@@ -28,11 +28,11 @@ function checkLoginDetails() {
             WHERE username LIKE ? AND password LIKE ?;`;
 }
 
-function updateUserDetails(key, value, token) {
+function updateUserDetails(key) {
   return `UPDATE users
             JOIN sessions ON users.user_id = sessions.user_id
-                SET ${key} = "${value}"
-                    WHERE sessions.token LIKE "${token}";`;
+                SET ${key} = ?
+                    WHERE sessions.token LIKE ?;`;
 }
 
 function deleteUser() {
