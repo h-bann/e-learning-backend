@@ -10,24 +10,34 @@
       {
         "id": 1,
         "moduleTitle": "Session Overview",
-        "moduleContent": [
-          { "type": "mainHeading", "content": "Learning Objectives" },
+        "subModules": [
           {
-            "type": "paragraph",
-            "content": "For this course, the learning objectives are:"
+            "subModuleTitle": "Task 1",
+            "moduleContent": [
+              { "type": "mainHeading", "content": "Learning Objectives" },
+              {
+                "type": "paragraph",
+                "content": "For this course, the learning objectives are:"
+              }
+            ]
           },
           {
-            "type": "list",
-            "content": [
-              "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
-              "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
-              "Explain what to do in an emergency situation, including what to do when someone is choking and how to get a person in the recovery position",
-              "Carry out basic airway management, i.e. ensure an open airway",
-              "Describe how to confirm cardiac arrest",
-              "Explain how to initiate and maintain effective lung ventilations",
-              "Describe how to start and maintain effective chest compressions",
-              "Describe how to use an automated external defibrillator (AED)",
-              "Describe your individual role and responsibilities in responding to persons in emergency situations "
+            "subModuleTitle": "Task 2",
+            "moduleContent": [
+              {
+                "type": "list",
+                "content": [
+                  "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
+                  "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
+                  "Explain what to do in an emergency situation, including what to do when someone is choking and how to get a person in the recovery position",
+                  "Carry out basic airway management, i.e. ensure an open airway",
+                  "Describe how to confirm cardiac arrest",
+                  "Explain how to initiate and maintain effective lung ventilations",
+                  "Describe how to start and maintain effective chest compressions",
+                  "Describe how to use an automated external defibrillator (AED)",
+                  "Describe your individual role and responsibilities in responding to persons in emergency situations "
+                ]
+              }
             ]
           }
         ]
