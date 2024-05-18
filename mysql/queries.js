@@ -63,15 +63,16 @@ function getContent() {
 
 function addEnrolledCourses() {
   return `INSERT INTO enrolled_courses
-            (user_id, course_title, course_id)
+            (user_id, course_title, course_id, image)
               VALUES
-                (?, ?, ?);`;
+                (?, ?, ?, ?);`;
 }
 
 function getEnrolledCourses() {
-  return `SELECT courses.id, courses.course_title, courses.image, courses.more_info, courses.instructions FROM courses
-            JOIN enrolled_courses ON courses.id = enrolled_courses.course_id
-              ;`;
+  return `SELECT enrolled_courses.* FROM users
+            JOIN sessions on users.user_id = sessions.user_id
+            JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+              WHERE token LIKE ?;`;
 }
 
 function deleteEnrolledCourse() {
@@ -86,7 +87,6 @@ module.exports = {
   getUser,
   insertToken,
   checkLoginDetails,
-  // checkToken,
   updateUserDetails,
   deleteUser,
   deleteToken,
@@ -98,3 +98,5 @@ module.exports = {
   getEnrolledCourses,
   deleteEnrolledCourse,
 };
+
+//
