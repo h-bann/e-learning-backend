@@ -18,9 +18,8 @@ router.patch("/enrolled", async (request, response) => {
     return;
   }
 
-  const enrolledCourses = await mySQL(getEnrolledCourses());
-  const { course_title, course_id } = request.body;
-
+  const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
+  const { course_title, course_id, image } = request.body;
   if (enrolledCourses) {
     const duplicate = enrolledCourses.some((item) => {
       return item.course_title.includes(course_title);
@@ -30,7 +29,12 @@ router.patch("/enrolled", async (request, response) => {
     }
   }
 
-  await mySQL(addEnrolledCourses(), [user[0].user_id, course_title, course_id]);
+  await mySQL(addEnrolledCourses(), [
+    user[0].user_id,
+    course_title,
+    course_id,
+    image,
+  ]);
   response.send({ code: 1, message: "Enrolled on course" });
 });
 
@@ -41,7 +45,7 @@ router.get("/getEnrolledCourses", async (request, response) => {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
-  const enrolledCourses = await mySQL(getEnrolledCourses());
+  const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
   response.send({ code: 1, enrolledCourses: enrolledCourses });
 });
 
