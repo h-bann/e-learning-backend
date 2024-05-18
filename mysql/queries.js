@@ -43,7 +43,7 @@ function deleteUser() {
 }
 
 function getCourse() {
-  return `SELECT course_title AS courseTitle FROM courses
+  return `SELECT course_title AS courseTitle, id AS courseId FROM courses
             WHERE id = ?;`;
 }
 
@@ -82,6 +82,12 @@ function deleteEnrolledCourse() {
               WHERE token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
 }
 
+function courseProgress() {
+  return `UPDATE enrolled_courses
+            SET course_progress = ?
+              WHERE user_id = ? AND course_id = ?;`;
+}
+
 module.exports = {
   addUser,
   getUser,
@@ -97,6 +103,7 @@ module.exports = {
   addEnrolledCourses,
   getEnrolledCourses,
   deleteEnrolledCourse,
+  courseProgress,
 };
 
 //
