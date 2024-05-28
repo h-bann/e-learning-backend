@@ -1,7 +1,11 @@
 const express = require("express");
 const sha256 = require("sha256");
 const mySQL = require("../mysql/driver");
-const { updateUserDetails, getUser } = require("../mysql/queries");
+const {
+  updateUserDetails,
+  getUser,
+  checkExistingUserDetails,
+} = require("../mysql/queries");
 const router = express.Router();
 
 router.patch("/update", async (request, response) => {
@@ -24,15 +28,31 @@ router.patch("/update", async (request, response) => {
       return;
     }
 
+    const existingDetails = await mySQL(checkExistingUserDetails(), [
+      username,
+      email,
+    ]);
+
+    console.log(email);
+    console.log(existingDetails);
     // if details entered are same as database - error
-    if (email === user[0].email || username === user[0].username) {
+    if (existingDetails.length && email === existingDetails[0].email) {
       response.send({
         code: 0,
-        message: "This email/username is already taken",
+        message: "This email is already taken, please try again",
       });
       return;
     }
+    console.log(token);
 
+    // if details entered are same as database - error
+    if (existingDetails.length && username === existingDetails[0].username) {
+      response.send({
+        code: 0,
+        message: "This username is already taken, please try again",
+      });
+      return;
+    }
     // if email or username entered, change database record
     if (email) {
       await mySQL(updateUserDetails("email"), [email, token]);

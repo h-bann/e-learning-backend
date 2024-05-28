@@ -28,6 +28,11 @@ function checkLoginDetails() {
             WHERE username LIKE ? AND password LIKE ?;`;
 }
 
+function checkExistingUserDetails() {
+  return `SELECT * FROM users
+            WHERE username LIKE ? OR email LIKE ?;`;
+}
+
 function updateUserDetails(key) {
   return `UPDATE users
             JOIN sessions ON users.user_id = sessions.user_id
@@ -93,6 +98,7 @@ module.exports = {
   getUser,
   insertToken,
   checkLoginDetails,
+  checkExistingUserDetails,
   updateUserDetails,
   deleteUser,
   deleteToken,
