@@ -7,6 +7,7 @@ const {
   getModules,
   getCourse,
   getUser,
+  getSubModules,
 } = require("../mysql/queries");
 
 router.get("/", async (request, response) => {
@@ -26,7 +27,8 @@ router.get("/getCourse/:id", async (request, response) => {
 
   const course = await mySQL(getCourse(), [id]);
   const modules = await mySQL(getModules(), [id]);
-
+  const subModules = await mySQL(getSubModules(), [id]);
+  console.log(subModules);
   course[0].modules = modules;
 
   for (let i = 0; i < course[0].modules.length; i++) {

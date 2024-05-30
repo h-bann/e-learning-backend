@@ -47,13 +47,13 @@ function deleteUser() {
               WHERE token LIKE ?;`;
 }
 
+function getCourses() {
+  return `SELECT * FROM courses;`;
+}
+
 function getCourse() {
   return `SELECT course_title AS courseTitle, id AS courseId FROM courses
             WHERE id = ?;`;
-}
-
-function getCourses() {
-  return `SELECT * FROM courses;`;
 }
 
 function getModules() {
@@ -61,9 +61,14 @@ function getModules() {
             WHERE course_id = ?;`;
 }
 
+function getSubModules() {
+  return `SELECT * FROM sub_modules
+              WHERE module_id = ?;`;
+}
+
 function getContent() {
   return `SELECT * FROM content 
-            WHERE module_id = ?;`;
+            WHERE sub_module_id = ?;`;
 }
 
 function addEnrolledCourses() {
@@ -133,6 +138,7 @@ module.exports = {
   getCourses,
   getCourse,
   getModules,
+  getSubModules,
   getContent,
   addEnrolledCourses,
   getEnrolledCourses,
