@@ -70,7 +70,10 @@ router.patch("/update", async (request, response) => {
       password = sha256(password + "eLearningApp");
       // if password same as database - error
       if (password === user[0].password) {
-        response.send({ code: 0, message: "Cannot use previous password" });
+        response.send({
+          code: 0,
+          message: "This is the same as your current password",
+        });
         return;
       }
       // else, change database record
