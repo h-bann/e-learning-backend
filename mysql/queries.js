@@ -93,6 +93,34 @@ function courseProgress() {
               WHERE user_id = ? AND course_id = ?;`;
 }
 
+function insertCourses() {
+  return `INSERT INTO courses
+            (course_title, image, more_info, instructions)
+                VALUES
+                    (?,?,?,?);`;
+}
+
+function insertModules() {
+  return `INSERT INTO modules
+            (course_id, module_title)
+                VALUES
+                    (?,?);`;
+}
+
+function insertSubModules() {
+  return `INSERT INTO sub_modules
+            (module_id, sub_module_title)
+                VALUES
+                    (?,?);`;
+}
+
+function insertContent() {
+  return `INSERT INTO content
+            (sub_module_id, type, content)
+                VALUES
+                    (?,?,?);`;
+}
+
 module.exports = {
   addUser,
   getUser,
@@ -110,6 +138,10 @@ module.exports = {
   getEnrolledCourses,
   deleteEnrolledCourse,
   courseProgress,
+  insertCourses,
+  insertModules,
+  insertSubModules,
+  insertContent,
 };
 
 //
