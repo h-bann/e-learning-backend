@@ -9,21 +9,21 @@ const data = require("../courseContent.json");
 // const { connect } = require("../routes/enrolledCourses");
 
 // ! When using local database
+const connection = mysql.createConnection({
+  host: process.env.DB_LOCALHOST,
+  user: process.env.DB_LOCALUSER,
+  password: process.env.DB_LOCALPASSWORD,
+  database: process.env.DB_LOCALDATABASE,
+  multipleStatements: false,
+});
+
+// ! When using host presto database
 // const connection = mysql.createConnection({
-//  host: process.env.DB_HOST,
+//   host: process.env.DB_HOST,
 //   user: process.env.DB_USER,
 //   password: process.env.DB_PASSWORD,
 //   database: process.env.DB_DATABASE,
-//   multipleStatements: false
 // });
-
-// ! When using cloud database
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-});
 
 connection.connect();
 
@@ -35,7 +35,6 @@ function mySQL(query, params) {
         return;
       }
       resolve(results);
-      // console.log(results);
     });
   });
 }
