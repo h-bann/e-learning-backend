@@ -1,492 +1,98 @@
 [
   {
     "id": 1,
-    "title": "Basic Life Support",
-    "image": "BLS.jpg",
-    "moreInformation": "Pop up box with more BLS info",
-    "instructions": "In order to complete this learning, visit each of the modules shown below",
+    "title": "Test course 1",
+    "image": "test.jpg",
+    "moreInformation": "Pop up box with more info 1",
+    "instructions": "In order to complete this learning, visit each of the modules shown below 1 ",
 
     "modules": [
       {
         "id": 1,
-        "moduleTitle": "Session Overview",
+        "moduleTitle": "Course 1 Day 1",
         "subModules": [
           {
-            "subModuleTitle": "Task 1",
-            "moduleContent": [
-              { "type": "mainHeading", "content": "Learning Objectives" },
-              {
-                "type": "paragraph",
-                "content": "For this course, the learning objectives are:"
-              }
+            "id": 1,
+            "subModuleTitle": "Day 1, Task 1",
+            "content": [
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
             ]
           },
           {
-            "subModuleTitle": "Task 2",
-            "moduleContent": [
-              {
-                "type": "list",
-                "content": [
-                  "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
-                  "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
-                  "Explain what to do in an emergency situation, including what to do when someone is choking and how to get a person in the recovery position",
-                  "Carry out basic airway management, i.e. ensure an open airway",
-                  "Describe how to confirm cardiac arrest",
-                  "Explain how to initiate and maintain effective lung ventilations",
-                  "Describe how to start and maintain effective chest compressions",
-                  "Describe how to use an automated external defibrillator (AED)",
-                  "Describe your individual role and responsibilities in responding to persons in emergency situations "
-                ]
-              }
+            "id": 2,
+            "subModuleTitle": "Day 1, Task 2",
+            "content": [
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
+            ]
+          },
+          {
+            "id": 3,
+            "subModuleTitle": "Day 1, Task 3",
+            "content": [
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
             ]
           }
         ]
       },
-
       {
         "id": 2,
-        "moduleTitle": "Introduction",
-        "moduleContent": [
-          { "type": "mainHeading", "content": "Overview" },
+        "moduleTitle": "Course 1 Day 2",
+        "subModules": [
           {
-            "type": "paragraph",
-            "content": "Early recognition of the deteriorating patient and prevention of cardiac arrest is the first link in the Chain of Survival. Prevention of cardiac arrests requires staff education, monitoring patients, recognition of patient deterioration, a system to call for help and an effective response."
-          },
-
-          {
-            "type": "paragraph",
-            "content": "In this session we will look at:"
-          },
-          {
-            "type": "list",
+            "id": 1,
+            "subModuleTitle": "Day 2, Task 1",
             "content": [
-              "What to do when you encounter a collapsed or sick patient. This includes looking for signs of life and assessing ABCDE (airway, breathing, circulation, disability, exposure)",
-              "Calling for help",
-              "Carrying out CPR ",
-              "Using an automated external defibrillator (AED)"
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
             ]
           },
           {
-            "type": "paragraph",
-            "content": "Please note: this e-learning has been designed to give you an overview of what to do in an emergency situation. All organisations will have their own resuscitation guidelines and this e-learning should be used in conjunction with your organisations face-to-face training"
-          },
-
-          { "type": "mainHeading", "content": "Your Responsibilities" },
-          {
-            "type": "paragraph",
-            "content": "National resuscitation guidelines are set by the Resuscitation Council UK and the European Resuscitation Council."
-          },
-          {
-            "type": "paragraph",
-            "content": "You have a responsibility for ensuring that your knowledge regarding all aspects of resuscitation is kept up to date and complies with your organisation's mandatory training requirements."
-          },
-          { "type": "paragraph", "content": "Local policy and procedures" },
-
-          {
-            "type": "paragraph",
-            "content": "Responsibilities include:"
-          },
-          {
-            "type": "list",
+            "id": 2,
+            "subModuleTitle": "Day 2, Task 2",
             "content": [
-              "Knowing your organisation's local resuscitation and Do Not Attempt Cardiopulmonary Resuscitation (DNACPR) policies",
-              "Complying with your professional code of conduct",
-              "Knowing local procedures, for example:"
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
             ]
           },
           {
-            "type": "subList",
+            "id": 3,
+            "subModuleTitle": "Day 2, Task 3",
             "content": [
-              "Location of emergency buzzers",
-              "Location of emergency equipment",
-              "How to use emergency equipment within your workplace",
-              "How to summon help",
-              "Emergency access routes"
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
             ]
-          },
-          {
-            "type": "subHeading",
-            "content": "Reporting and recording details"
-          },
-          {
-            "type": "paragraph",
-            "content": "It is important to record factual details of an emergency event to document what has happened. This can then be shared or communicated with other agencies as appropriate and used as an aid to recall if further investigation is required."
-          },
-          {
-            "type": "paragraph",
-            "content": "Emergency events need to be reported in accordance with national and/or local policies. This is because it will help to identify trends which may alert you to potential problems and can be used for auditing purposes to aid organisational learning."
-          },
-          {
-            "type": "paragraph",
-            "content": "The final document should be written in black ink so that it is clear and legible, timed/dated and signed with the name printed."
-          },
-          {
-            "type": "subHeading",
-            "content": "Personal capabilities"
-          },
-          {
-            "type": "paragraph",
-            "content": "It is inappropriate and potentially dangerous to work beyond your level of knowledge and skills or personal capabilities, even in an emergency situation. This is because you may negatively influence the patient's outcome, you may injure yourself and you may leave yourself open to possible disciplinary action or litigation."
-          },
-          {
-            "type": "paragraph",
-            "content": "It is important that your competencies and capabilities are up to date and reflect the requirements and responsibilities of your job role, as these can decline rapidly if not utilised or updated. By doing so, you also help to protect the patient and yourself and ensure that your practice follows the current and latest guidelines."
           }
         ]
       },
-
       {
         "id": 3,
-        "moduleTitle": "Procedure for Resuscitation",
-        "moduleContent": [
-          { "type": "mainHeading", "content": "Procedure for Resuscitation" },
+        "moduleTitle": "Course 1 Day 3",
+        "subModules": [
           {
-            "type": "paragraph",
-            "content": "The chart below is from The Resuscitation Council UK and details what actions to take for a collapsed patient in hospital. It covers:"
-          },
-          {
-            "type": "list",
+            "id": 1,
+            "subModuleTitle": "Day 3, Task 1",
             "content": [
-              "Safety",
-              "Checking the patient for a response",
-              "What to do if the patient responds",
-              "What to do if the patient does not respond"
-            ]
-          },
-          { "type": "image", "content": "abcdeFlowchart.jpg" },
-          {
-            "type": "paragraph",
-            "content": "Each part of this chart will be covered in more detail over the next few pages."
-          },
-          { "type": "mainHeading", "content": "The ABCDE approach" },
-          {
-            "type": "paragraph",
-            "content": ["In the event of finding a collapsed/sick individual:"]
-          },
-          {
-            "type": "list",
-            "content": [
-              "Ensure personal safety. Wear personal protection equipment if necessary",
-              "Your first impression is important. Look at the patient in general to see whether the patient ‘looks unwell’",
-              "If the patient is responsive, perform an ABCDE assessment ensuring life-threatening problems are identified and treated; do you need to call for help?",
-              "After completing an initial ABCDE assessment, or following an intervention, reassess the patient using the ABCDE approach",
-              "If the patient is unconscious, unresponsive and is not breathing normally (occasional gasps are not normal and are a sign of cardiac arrest), start CPR"
-            ]
-          },
-
-          { "type": "subHeading", "content": "Airway" },
-          { "type": "paragraph", "content": "Assessment" },
-          {
-            "type": "list",
-            "content": [
-              "Is the airway patent and maintained?",
-              "Can the patient speak?",
-              "Are there added noises?",
-              "Is there a see-saw movement of the chest and abdomen?"
-            ]
-          },
-          { "type": "paragraph", "content": "Management" },
-          {
-            "type": "list",
-            "content": [
-              "Ensure that the airway is patent and maintained",
-              "Simple airway manoeuvres such as a head tilt and chin lift (in trauma use a jaw thrust)",
-              "Consider suction, airway adjuncts, position patient",
-              "Oxygen via non-rebreath mask"
-            ]
-          },
-
-          { "type": "subHeading", "content": "Breathing" },
-          { "type": "paragraph", "content": "Assessment" },
-          { "type": "paragraph", "content": "Observe:" },
-          {
-            "type": "list",
-            "content": [
-              "Rate and pattern",
-              "Depth of respiration",
-              "Symmetry of chest movement",
-              "Use of accessory muscles",
-              "Colour of patient",
-              "Oxygen saturation"
-            ]
-          },
-          { "type": "paragraph", "content": "Management" },
-          {
-            "type": "list",
-            "content": [
-              "Position of patient",
-              "Monitor and maintain oxygen saturations",
-              "Consider physiotherapy and nebulisers",
-              "Ventilate the patient using a pocket mask or bag-valve mask if insufficient rate of breathing,"
-            ]
-          },
-
-          { "type": "subHeading", "content": "Circulation" },
-          { "type": "paragraph", "content": "Assessment" },
-          {
-            "type": "list",
-            "content": [
-              "Manual pulse and BP",
-              "Capillary refill time",
-              "Urine output",
-              "Fluid balance",
-              "Temperature",
-              "Monitoring and, if available, a 12-lead ECG to allow prompt recognition of a myocardial infarction,"
-            ]
-          },
-          { "type": "paragraph", "content": "Management" },
-          {
-            "type": "list",
-            "content": [
-              "Cannulate, ensure patent IV access",
-              "Take bloods",
-              "Blood cultures and antibiotics (if required)",
-              "Fluid bolus"
-            ]
-          },
-
-          { "type": "subHeading", "content": "Disability" },
-          { "type": "paragraph", "content": "Assessment" },
-          {
-            "type": "list",
-            "content": [
-              "Conscious level using AVPU",
-              "Blood glucose level",
-              "Pupil size and reaction",
-              "Loss of tone in limbs and face on one side (CVA) – this will require urgent treatment",
-              "Observe for signs of seizures"
-            ]
-          },
-          { "type": "paragraph", "content": "Management" },
-          {
-            "type": "list",
-            "content": [
-              "Consider recovery position",
-              "Correct blood glucose",
-              "Control seizures",
-              "Control pain"
-            ]
-          },
-
-          { "type": "subHeading", "content": "Exposure" },
-          { "type": "paragraph", "content": "Assessment" },
-          {
-            "type": "list",
-            "content": [
-              "Perform head-to-toe examination, front and back",
-              "Look for signs of a rash or signs of injury/bleeding"
-            ]
-          },
-          { "type": "paragraph", "content": "Management" },
-          {
-            "type": "list",
-            "content": ["Manage abnormal findings appropriately"]
-          }
-        ]
-      },
-
-      {
-        "id": 4,
-        "moduleTitle": "Adult Basic Life Support",
-        "moduleContent": [
-          { "type": "mainHeading", "content": "Adult Basic Life Support" },
-          {
-            "type": "subHeading",
-            "content": "Chain of Survival"
-          },
-          {
-            "type": "paragraph",
-            "content": "The Chain of Survival is a series of actions that increases the chances of a patient surviving a cardiac arrest. This is predominantly about the resuscitation of patients in an acute hospital; however, the initial resuscitation of patients is similar in any clinical setting and the same standards apply."
-          },
-          { "type": "image", "content": "chainOfSurvival.png" },
-          {
-            "type": "paragraph",
-            "content": "Early recognition and call for help"
-          },
-          {
-            "type": "list",
-            "content": [
-              "The deteriorating patient is recognised early and there is an effective system to summon help in order to prevent cardiorespiratory arrest."
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
             ]
           },
           {
-            "type": "paragraph",
-            "content": "Early CPR"
-          },
-          {
-            "type": "list",
+            "id": 2,
+            "subModuleTitle": "Day 3, Task 2",
             "content": [
-              "Cardiorespiratory arrest is recognised early and CPR is started immediately.",
-              "If not done so already, help is immediately called as soon as cardiorespiratory arrest is recognised."
-            ]
-          },
-
-          {
-            "type": "paragraph",
-            "content": "Early defibrillation"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Defibrillation, if appropriate, is attempted within 3 minutes of identifying cardiorespiratory arrest."
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
             ]
           },
           {
-            "type": "paragraph",
-            "content": "Post-resuscitation care"
-          },
-          {
-            "type": "list",
+            "id": 3,
+            "subModuleTitle": "Day 3, Task 3",
             "content": [
-              "Post-cardiac arrest care is received by those who are resuscitated successfully. This includes safe transfer."
-            ]
-          },
-          {
-            "type": "subHeading",
-            "content": "Patients with no signs of life"
-          },
-          {
-            "type": "paragraph",
-            "content": "We have discussed what you should do when you are confronted with a patient and there are signs of life. We are now going to look at what to do when there aren’t any signs of life. Remember that we are still looking at what to do when you are in a hospital setting."
-          },
-          { "type": "image", "content": "chestCompressions.jpg" },
-          {
-            "type": "paragraph",
-            "content": "Approach"
-          },
-          {
-            "type": "list",
-            "content": ["Approach with care"]
-          },
-          {
-            "type": "paragraph",
-            "content": "Shout for help"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Person is unresponsive and not breathing normally - shout for help."
-            ]
-          },
-          {
-            "type": "paragraph",
-            "content": "Open the airway"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Open the airway using head tilt and chin lift. Check for breathing and signs of life."
-            ]
-          },
-          {
-            "type": "bold",
-            "content": "If you are unsure, treat the person as being in cardiac arrest."
-          },
-          {
-            "type": "paragraph",
-            "content": "Call for help"
-          },
-          {
-            "type": "list",
-            "content": [
-              "In a hospital get a colleague to call 2222 and ask for the Cardiac Arrest Team.",
-              "State your location and repeat."
-            ]
-          },
-          {
-            "type": "paragraph",
-            "content": "Chest compressions"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Carry out chest compressions continuously at a rate of 120 (roughly 2 per second)",
-              "When a bag valve mask is available, deliver compressions and breaths at a ratio of 30:2",
-              "Emphasis must be placed on high quality chest compressions"
-            ]
-          },
-          {
-            "type": "paragraph",
-            "content": "Automated External Defibrillator (AED)"
-          },
-          {
-            "type": "list",
-            "content": [
-              "When an AED is available, switch device on and follow instructions provided by device"
-            ]
-          },
-          {
-            "type": "subHeading",
-            "content": "Automated External Defibrillator (AED)"
-          },
-          {
-            "type": "paragraph",
-            "content": "AEDs deliver a therapeutic dose of electrical energy to the heart."
-          },
-          {
-            "type": "paragraph",
-            "content": "You must check your local cardiopulmonary policy for your roles and responsibilities regarding this equipment."
-          },
-          {
-            "type": "underlined",
-            "content": "Instructions"
-          },
-          {
-            "type": "paragraph",
-            "content": "Open the AED, switch it on and follow the spoken/visual instructions on how to use it. A semi-automatic AED indicates if a shock is needed which should be delivered by the operator."
-          },
-          {
-            "type": "paragraph",
-            "content": "When attaching pads you must:"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Cut off the clothes to expose the chest",
-              "Dry the chest of any fluids",
-              "Move jewellery out of the way",
-              "Remove any drug patches",
-              "Check for pacemakers (if the pacemaker is on the right-hand side, place pads front and back)"
-            ]
-          },
-          {
-            "type": "underlined",
-            "content": "Pads"
-          },
-          { "type": "image", "content": "padPlacement.jpg" },
-          {
-            "type": "list",
-            "content": [
-              "Place the first pad on the patient's upper right side, just below their collarbone as shown on the pad",
-              "Place the second pad on the left mid-axillary line as indicated by the picture on the pad. Breast tissue should be avoided. Make sure you position the pad lengthways, with the long side in line with the length of their body",
-              "Chest compressions should continue whilst pads are applied",
-              "If a shock is indicated, ensure that everyone is clear of the patient and ensure all free-flowing oxygen is removed. Everyone should be at least 1 metre away from the patient",
-              "Push the shock button as directed",
-              "Immediately restart CPR at a ratio of 30:2",
-              "Continue as directed by the voice/visual prompts"
-            ]
-          },
-          {
-            "type": "bold",
-            "content": "If no shock is indicated, continue CPR until prompted to stop by the AED or the patient shows signs of life."
-          },
-          {
-            "type": "subHeading",
-            "content": "Module Summary"
-          },
-          {
-            "type": "paragraph",
-            "content": "Key points:"
-          },
-          {
-            "type": "list",
-            "content": [
-              "Early recognition of the deteriorating patient and prevention of cardiac arrest increases the chances of a patient surviving a cardiac arrest",
-              "If you find a collapsed or sick individual, you must first ensure your personal safety before assessing whether the patient is responsive",
-              "If the patient is responsive, you should carry out an ABCDE assessment; if the patient is not responsive and is not breathing normally, you should start CPR",
-              "Early defibrillation, if appropriate, should be attempted within 3 minutes of identifying cardiorespiratory arrest",
-              "You have a responsibility for ensuring that your knowledge regarding all aspects of resuscitation is kept up to date and complies with your organisation's mandatory training requirements",
-              "You should only carry out resuscitation interventions within the limits of your personal capabilities and context of any previous training received"
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
             ]
           }
         ]
@@ -495,51 +101,100 @@
   },
   {
     "id": 2,
-    "title": "How To Cook",
-    "image": "cooking.jpg",
-    "moreInformation": "Pop up box with more cooking info",
-    "instructions": "In order to complete this learning, visit each of the modules shown below",
+    "title": "Test course 2",
+    "image": "test.jpg",
+    "moreInformation": "Pop up box with more info 2",
+    "instructions": "In order to complete this learning, visit each of the modules shown below 2 ",
 
     "modules": [
       {
         "id": 1,
-        "moduleTitle": "Learning Objectives",
-        "moduleContent": [
+        "moduleTitle": "Course 2 Day 1",
+        "subModules": [
           {
-            "type": "list",
+            "id": 1,
+            "subModuleTitle": "Day 1, Task 1",
             "content": [
-              "Learn to choose ingredients",
-              "Learn to use the ingredients"
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
+            ]
+          },
+          {
+            "id": 2,
+            "subModuleTitle": "Day 1, Task 2",
+            "content": [
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
+            ]
+          },
+          {
+            "id": 3,
+            "subModuleTitle": "Day 1, Task 3",
+            "content": [
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
             ]
           }
         ]
       },
       {
         "id": 2,
-        "moduleTitle": "Session Overview",
-        "moduleContent": [
-          { "type": "paragraph", "content": "Cooking test content 1" }
+        "moduleTitle": "Course 2 Day 2",
+        "subModules": [
+          {
+            "id": 1,
+            "subModuleTitle": "Day 2, Task 1",
+            "content": [
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
+            ]
+          },
+          {
+            "id": 2,
+            "subModuleTitle": "Day 2, Task 2",
+            "content": [
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
+            ]
+          },
+          {
+            "id": 3,
+            "subModuleTitle": "Day 2, Task 3",
+            "content": [
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
+            ]
+          }
         ]
       },
       {
         "id": 3,
-        "moduleTitle": "What do you need",
-        "moduleContent": [
-          { "type": "paragraph", "content": "Cooking test content 2" }
-        ]
-      },
-      {
-        "id": 4,
-        "moduleTitle": "Let's cook",
-        "moduleContent": [
-          { "type": "paragraph", "content": "Cooking test content 3" }
-        ]
-      },
-      {
-        "id": 5,
-        "moduleTitle": "Let us eat",
-        "moduleContent": [
-          { "type": "paragraph", "content": "Cooking test content 4" }
+        "moduleTitle": "Course 2 Day 3",
+        "subModules": [
+          {
+            "id": 1,
+            "subModuleTitle": "Day 3, Task 1",
+            "content": [
+              { "type": "heading", "content": "Task 1 heading" },
+              { "type": "paragraph", "content": "Task 1 paragraph content" }
+            ]
+          },
+          {
+            "id": 2,
+            "subModuleTitle": "Day 3, Task 2",
+            "content": [
+              { "type": "heading", "content": "Task 2 heading" },
+              { "type": "paragraph", "content": "Task 2 paragraph content" }
+            ]
+          },
+          {
+            "id": 3,
+            "subModuleTitle": "Day 3, Task 3",
+            "content": [
+              { "type": "heading", "content": "Task 3 heading" },
+              { "type": "paragraph", "content": "Task 3 paragraph content" }
+            ]
+          }
         ]
       }
     ]
