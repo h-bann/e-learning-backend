@@ -33,8 +33,6 @@ router.patch("/update", async (request, response) => {
       email,
     ]);
 
-    console.log(email);
-    console.log(existingDetails);
     // if details entered are same as database - error
     if (existingDetails.length && email === existingDetails[0].email) {
       response.send({
@@ -43,7 +41,6 @@ router.patch("/update", async (request, response) => {
       });
       return;
     }
-    console.log(token);
 
     // if details entered are same as database - error
     if (existingDetails.length && username === existingDetails[0].username) {
