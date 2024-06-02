@@ -28,6 +28,11 @@ app.use("/courses", require("./routes/getCourses"));
 app.use("/courses", require("./routes/enrolledCourses"));
 app.use("/contact", require("./routes/contact"));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log the error stack for debugging
+  res.status(500).send("Something broke!"); // Respond with a generic error message
+});
+
 const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

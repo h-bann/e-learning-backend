@@ -6,26 +6,29 @@ const {
   insertContent,
 } = require("../mysql/queries");
 const data = require("../courseContent.json");
-// const { connect } = require("../routes/enrolledCourses");
 
 // ! When using local database
-const connection = mysql.createConnection({
-  host: process.env.DB_LOCALHOST,
-  user: process.env.DB_LOCALUSER,
-  password: process.env.DB_LOCALPASSWORD,
-  database: process.env.DB_LOCALDATABASE,
-  multipleStatements: false,
-});
-
-// ! When using host presto database
 // const connection = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_DATABASE,
+//   host: process.env.DB_LOCALHOST,
+//   user: process.env.DB_LOCALUSER,
+//   password: process.env.DB_LOCALPASSWORD,
+//   database: process.env.DB_LOCALDATABASE,
+//   multipleStatements: false,
 // });
 
-connection.connect();
+// ! When using host presto database
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+connection.connect((error) => {
+  if (error) {
+    console.error("Error connecting to database:", error);
+  }
+});
 
 function mySQL(query, params) {
   return new Promise((resolve, reject) => {
