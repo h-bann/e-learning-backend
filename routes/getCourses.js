@@ -28,9 +28,12 @@ router.get("/getCourse/:id", async (request, response) => {
   const course = await mySQL(getCourse(), [id]);
   const modules = await mySQL(getModules(), [id]);
   const subModules = await mySQL(getSubModules(), [id]);
-  console.log(subModules);
   course[0].modules = modules;
-
+  modules[0].subModules = subModules;
+  // console.log(course);
+  console.log(modules);
+  console.log(subModules);
+  return;
   for (let i = 0; i < course[0].modules.length; i++) {
     const content = await mySQL(getContent(), [course[0].modules[i].id]);
 
