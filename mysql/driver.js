@@ -5,7 +5,7 @@ const {
   insertSubModules,
   insertContent,
 } = require("../mysql/queries");
-const data = require("../courseContent.json");
+// const data = require("../courseContent.json");
 
 // ! When using local database
 // const connection = mysql.createConnection({
@@ -45,33 +45,33 @@ function mySQL(query, params) {
 module.exports = mySQL;
 
 // ! Inserts data into database
-const insertData = () => {
-  return data.forEach(async (itemOne) => {
-    const resultsOne = await mySQL(insertCourses(), [
-      itemOne.title,
-      itemOne.image,
-      itemOne.moreInformation,
-      itemOne.instructions,
-    ]);
-    itemOne.modules.forEach(async (itemTwo) => {
-      const resultsTwo = await mySQL(insertModules(), [
-        resultsOne.insertId,
-        itemTwo.moduleTitle,
-      ]);
-      itemTwo.subModules.forEach(async (itemThree) => {
-        const resultsThree = await mySQL(insertSubModules(), [
-          resultsTwo.insertId,
-          itemThree.subModuleTitle,
-        ]);
-        itemThree.content.forEach(async (itemFour) => {
-          return mySQL(insertContent(), [
-            resultsThree.insertId,
-            itemFour.type,
-            itemFour.content,
-          ]);
-        });
-      });
-    });
-  });
-};
+// const insertData = () => {
+//   return data.forEach(async (itemOne) => {
+//     const resultsOne = await mySQL(insertCourses(), [
+//       itemOne.title,
+//       itemOne.image,
+//       itemOne.moreInformation,
+//       itemOne.instructions,
+//     ]);
+//     itemOne.modules.forEach(async (itemTwo) => {
+//       const resultsTwo = await mySQL(insertModules(), [
+//         resultsOne.insertId,
+//         itemTwo.moduleTitle,
+//       ]);
+//       itemTwo.subModules.forEach(async (itemThree) => {
+//         const resultsThree = await mySQL(insertSubModules(), [
+//           resultsTwo.insertId,
+//           itemThree.subModuleTitle,
+//         ]);
+//         itemThree.content.forEach(async (itemFour) => {
+//           return mySQL(insertContent(), [
+//             resultsThree.insertId,
+//             itemFour.type,
+//             itemFour.content,
+//           ]);
+//         });
+//       });
+//     });
+//   });
+// };
 // insertData();
