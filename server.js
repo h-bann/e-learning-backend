@@ -4,13 +4,13 @@ const express = require("express");
 const helmet = require("helmet");
 const app = express();
 const cors = require("cors");
-// const { rateLimit } = require("express-rate-limit");
+const { rateLimit } = require("express-rate-limit");
 
-// const rateLimiter = rateLimit({
-//   windowMs: 900000, // 15 mins
-//   limit: 100000, // number of requests
-// });
-// app.use(rateLimiter);
+const rateLimiter = rateLimit({
+  windowMs: 900000, // 15 mins
+  limit: 1000, // number of requests
+});
+app.use(rateLimiter);
 
 app.use(cors());
 app.use(helmet());
