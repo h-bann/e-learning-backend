@@ -6,6 +6,7 @@ const {
   getEnrolledCourses,
   deleteEnrolledCourse,
   courseProgress,
+  courseComplete,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -59,13 +60,24 @@ router.patch("/courseProgress", async (request, response) => {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
-
   await mySQL(courseProgress(), [
     Number(moduleId),
     user[0].user_id,
     Number(courseId),
   ]);
   response.send({ code: 1, message: "Course progress recorded" });
+});
+
+router.patch("/courseComplete", async (request, response) => {
+  const { token } = request.headers;
+  const { courseId } = request.body;
+
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+  }
+
+  await mySQL(courseComplete(), ["true", user[0].user_id, Number(courseId)]);
 });
 
 router.delete("/deleteEnrolled/:courseId", async (request, response) => {

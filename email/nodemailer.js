@@ -9,10 +9,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
 });
-
 function sendEmail(payload, sender, to) {
-  console.log("hello");
-
   const mailOptions = {
     from: sender === undefined ? "help@we-learn.uk" : sender,
     to: to[0].email,
@@ -21,6 +18,8 @@ function sendEmail(payload, sender, to) {
   };
 
   try {
+    console.log("login attempted");
+
     transporter.sendMail(mailOptions, (error, info) => {
       console.log(error, info);
     });
