@@ -7,6 +7,8 @@ const {
   deleteEnrolledCourse,
   courseProgress,
   courseComplete,
+  moduleProgress,
+  courseCompletion,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -78,6 +80,50 @@ router.patch("/courseComplete", async (request, response) => {
   }
 
   await mySQL(courseComplete(), ["true", user[0].user_id, Number(courseId)]);
+});
+
+router.post("/moduleProgress", async (request, response) => {
+  const { token } = request.headers;
+  const { moduleId } = request.body;
+
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+    return;
+  }
+  try {
+    await mySQL(moduleProgress(), [user[0].user_id, moduleId, "complete"]);
+    response.send({ code: 1, message: "Course progress recorded" });
+  } catch (error) {
+    if ((error.code = "ER_DUP_ENTRY")) {
+      response.send({ code: 0, message: "Module already completed" });
+      return;
+    }
+    response.send({ code: 0, message: "Error, sorry" });
+  }
+});
+
+router.patch("/courseCompletion", async (request, response) => {
+  const { token } = request.headers;
+  const { courseId } = request.body;
+
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+  }
+
+  try {
+    await mySQL(courseCompletion(), [
+      "complete",
+      user[0].user_id,
+      Number(courseId),
+    ]);
+    response.send({ code: 1, message: "Course finished" });
+  } catch (error) {
+    if (error) {
+      response.send({ code: 0, message: "Error completing course" });
+    }
+  }
 });
 
 router.delete("/deleteEnrolled/:courseId", async (request, response) => {
