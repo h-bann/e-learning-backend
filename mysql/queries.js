@@ -99,6 +99,20 @@ function courseComplete() {
                WHERE user_id = ? AND course_id = ?;`;
 }
 
+// ! NEW VERSIONS
+function moduleProgress() {
+  return `INSERT INTO user_course_progress
+            (user_id, module_id, status)
+              VALUES
+                (?, ?, ?);`;
+}
+
+function courseCompletion() {
+  return `UPDATE enrolled_courses
+            SET status = ?
+              WHERE user_id = ? AND course_id = ?;`;
+}
+
 function insertCourses() {
   return `INSERT INTO courses
             (course_title, image, more_info, instructions)
@@ -145,6 +159,8 @@ module.exports = {
   deleteEnrolledCourse,
   courseProgress,
   courseComplete,
+  moduleProgress,
+  courseCompletion,
   insertCourses,
   insertModules,
   insertSubModules,
