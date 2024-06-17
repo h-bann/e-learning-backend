@@ -82,17 +82,24 @@ router.patch("/courseComplete", async (request, response) => {
   await mySQL(courseComplete(), ["true", user[0].user_id, Number(courseId)]);
 });
 
-router.post("/moduleProgress", async (request, response) => {
+router.patch("/moduleProgress", async (request, response) => {
   const { token } = request.headers;
-  const { moduleId } = request.body;
+  const { moduleId, courseId } = request.body;
 
   const user = await mySQL(getUser(), [token]);
+
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
+
   try {
-    await mySQL(moduleProgress(), [user[0].user_id, moduleId, "complete"]);
+    await mySQL(moduleProgress(), [
+      user[0].user_id,
+      courseId,
+      moduleId,
+      "complete",
+    ]);
     response.send({ code: 1, message: "Course progress recorded" });
   } catch (error) {
     if ((error.code = "ER_DUP_ENTRY")) {
