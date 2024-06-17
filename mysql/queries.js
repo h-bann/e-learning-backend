@@ -100,6 +100,11 @@ function courseComplete() {
 }
 
 // ! NEW VERSIONS
+function userProgress() {
+  return `SELECT * FROM user_course_progress
+	        	WHERE user_id LIKE ? AND course_id LIKE ?;`;
+}
+
 function moduleProgress() {
   return `INSERT INTO user_course_progress
             (user_id, course_id, module_id, status)
@@ -159,6 +164,8 @@ module.exports = {
   deleteEnrolledCourse,
   courseProgress,
   courseComplete,
+
+  userProgress,
   moduleProgress,
   courseCompletion,
   insertCourses,
