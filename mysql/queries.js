@@ -102,9 +102,9 @@ function courseComplete() {
 // ! NEW VERSIONS
 function moduleProgress() {
   return `INSERT INTO user_course_progress
-            (user_id, module_id, status)
+            (user_id, course_id, module_id, status)
               VALUES
-                (?, ?, ?);`;
+                (?, ?, ?, ?);`;
 }
 
 function courseCompletion() {
@@ -166,5 +166,3 @@ module.exports = {
   insertSubModules,
   insertContent,
 };
-
-//
