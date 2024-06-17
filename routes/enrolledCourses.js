@@ -9,6 +9,7 @@ const {
   courseComplete,
   moduleProgress,
   courseCompletion,
+  userProgress,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -51,6 +52,19 @@ router.get("/getEnrolledCourses", async (request, response) => {
   }
   const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
   response.send({ code: 1, enrolledCourses: enrolledCourses });
+});
+
+router.get("/userProgress", async (request, response) => {
+  const { token, id } = request.headers;
+
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+    return;
+  }
+
+  const result = await mySQL(userProgress(), [user[0].user_id, Number(id)]);
+  response.send({ code: 1, message: result });
 });
 
 router.patch("/courseProgress", async (request, response) => {
