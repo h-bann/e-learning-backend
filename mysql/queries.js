@@ -81,10 +81,11 @@ function getEnrolledCourses() {
 }
 
 function deleteEnrolledCourse() {
-  return `DELETE enrolled_courses.* FROM users
+  return `DELETE enrolled_courses, user_course_progress FROM users
             JOIN sessions on users.user_id = sessions.user_id
             JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
-              WHERE token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
+            JOIN user_course_progress on users.user_id = user_course_progress.user_id
+              WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ? AND user_course_progress.course_id LIKE ?;`;
 }
 
 function courseProgress() {
