@@ -147,11 +147,15 @@ router.patch("/courseCompletion", async (request, response) => {
   }
 });
 
-router.delete("/deleteEnrolled/:courseId", async (request, response) => {
+router.delete("/deleteEnrolled", async (request, response) => {
   const { token } = request.headers;
-  const { courseId } = request.params;
-
-  await mySQL(deleteEnrolledCourse(), [token, courseId]);
+  const courseId = request.headers.id;
+  console.log(courseId);
+  await mySQL(deleteEnrolledCourse(), [
+    token,
+    Number(courseId),
+    Number(courseId),
+  ]);
   response.send({ code: 1, message: "Successfully left course" });
 });
 
