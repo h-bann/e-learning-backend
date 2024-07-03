@@ -80,6 +80,27 @@ function getEnrolledCourses() {
               WHERE token LIKE ?;`;
 }
 
+// function getEnrolledCourses() {
+//   return `SELECT enrolled_courses.*, user_course_progress.module_id, user_course_progress.module_status FROM users
+//             JOIN sessions on users.user_id = sessions.user_id
+//             JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+//             JOIN user_course_progress on users.user_id = user_course_progress.user_id
+//               WHERE token LIKE ?;`;
+// }
+
+// function getEnrolledCourses() {
+//   return `SELECT
+//     enrolled_courses.user_id, enrolled_courses.course_status, enrolled_courses.course_title, enrolled_courses.image,
+//     enrolled_courses.course_id,
+//     GROUP_CONCAT(user_course_progress.module_id, ':', user_course_progress.module_status SEPARATOR ', ') AS module_statuses
+// FROM users
+// JOIN sessions ON users.user_id = sessions.user_id
+// JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
+// JOIN user_course_progress ON users.user_id = user_course_progress.user_id
+// WHERE sessions.token LIKE ?
+// GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;;`;
+// }
+
 function deleteEnrolledCourse() {
   return `DELETE enrolled_courses, user_course_progress FROM users
             JOIN sessions on users.user_id = sessions.user_id
@@ -106,9 +127,23 @@ function userProgress() {
 	        	WHERE user_id LIKE ? AND course_id LIKE ?;`;
 }
 
+function userProgress() {
+  return `SELECT
+    enrolled_courses.user_id,
+    enrolled_courses.course_id, enrolled_courses.course_title, enrolled_courses.image,
+    GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids,
+    IF(COUNT(*) = SUM(CASE WHEN user_course_progress.module_status = 'complete' THEN 1 ELSE 0 END), 'complete', 'incomplete') AS course_status
+FROM users
+JOIN sessions ON users.user_id = sessions.user_id
+JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
+JOIN user_course_progress ON users.user_id = user_course_progress.user_id
+WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?
+GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;`;
+}
+
 function moduleProgress() {
   return `INSERT INTO user_course_progress
-            (user_id, course_id, module_id, status)
+            (user_id, course_id, module_id, module_status)
               VALUES
                 (?, ?, ?, ?);`;
 }

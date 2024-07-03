@@ -22,14 +22,15 @@ router.patch("/enrolled", async (request, response) => {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
-
   const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
   const { course_title, course_id, image } = request.body;
+
   if (enrolledCourses) {
     const duplicate = enrolledCourses.some((item) => {
       return item.course_title.includes(course_title);
     });
     if (duplicate) {
+      response.send({ code: 1, message: "Already enrolled" });
       return;
     }
   }
@@ -52,19 +53,6 @@ router.get("/getEnrolledCourses", async (request, response) => {
   }
   const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
   response.send({ code: 1, enrolledCourses: enrolledCourses });
-});
-
-router.get("/userProgress", async (request, response) => {
-  const { token, id } = request.headers;
-
-  const user = await mySQL(getUser(), [token]);
-  if (user < 1) {
-    response.send({ code: 0, message: "No matching account" });
-    return;
-  }
-
-  const result = await mySQL(userProgress(), [user[0].user_id, Number(id)]);
-  response.send({ code: 1, message: result });
 });
 
 router.patch("/courseProgress", async (request, response) => {
@@ -96,12 +84,30 @@ router.patch("/courseComplete", async (request, response) => {
   await mySQL(courseComplete(), ["true", user[0].user_id, Number(courseId)]);
 });
 
+router.get("/userProgress", async (request, response) => {
+  const { token, id } = request.headers;
+
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+    return;
+  }
+  const result = await mySQL(userProgress(), [token, Number(id)]);
+
+  const duplicate = result[0].module_ids.map((item) => {
+    console.log(item);
+  });
+
+  // console.log(result);
+
+  response.send({ code: 1, message: result });
+});
+
 router.patch("/moduleProgress", async (request, response) => {
   const { token } = request.headers;
   const { moduleId, courseId } = request.body;
 
   const user = await mySQL(getUser(), [token]);
-
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
     return;
@@ -131,6 +137,7 @@ router.patch("/courseCompletion", async (request, response) => {
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
+    return;
   }
 
   try {
@@ -150,13 +157,19 @@ router.patch("/courseCompletion", async (request, response) => {
 router.delete("/deleteEnrolled", async (request, response) => {
   const { token } = request.headers;
   const courseId = request.headers.id;
-  console.log(courseId);
-  await mySQL(deleteEnrolledCourse(), [
-    token,
-    Number(courseId),
-    Number(courseId),
-  ]);
-  response.send({ code: 1, message: "Successfully left course" });
+
+  try {
+    await mySQL(deleteEnrolledCourse(), [
+      token,
+      Number(courseId),
+      Number(courseId),
+    ]);
+    response.send({ code: 1, message: "Successfully left course" });
+  } catch (error) {
+    if (error) {
+      response.send({ code: 0, message: "Error deleting course" });
+    }
+  }
 });
 
 module.exports = router;
