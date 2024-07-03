@@ -45,13 +45,14 @@ router.patch("/enrolled", async (request, response) => {
 });
 
 router.get("/getEnrolledCourses", async (request, response) => {
-  const { token } = request.headers;
+  const { token, id } = request.headers;
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
   const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
+  // const userProgress = await mySQL(userProgress(), [token, Number(id)]);
   response.send({ code: 1, enrolledCourses: enrolledCourses });
 });
 
@@ -94,13 +95,19 @@ router.get("/userProgress", async (request, response) => {
   }
   const result = await mySQL(userProgress(), [token, Number(id)]);
 
-  const duplicate = result[0].module_ids.map((item) => {
-    console.log(item);
-  });
+  // const duplicate = result[0].module_ids.map((item) => {
+  //   console.log(item);
+  // });
+  if (result < 1) {
+    return;
+  }
 
-  // console.log(result);
+  let newArray = result[0].module_ids
+    .split(",")
+    .map((str) => Number(str.trim()));
+  result[0].module_ids = newArray;
 
-  response.send({ code: 1, message: result });
+  response.send({ code: 1, message: result[0] });
 });
 
 router.patch("/moduleProgress", async (request, response) => {

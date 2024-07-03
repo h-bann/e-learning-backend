@@ -48,22 +48,35 @@ function deleteUser() {
 }
 
 function getCourse() {
-  return `SELECT course_title AS courseTitle, id AS courseId FROM courses
+  return `SELECT course_title AS courseTitle, id AS courseId, image, more_info,  FROM courses
             WHERE id = ?;`;
 }
+
+// function getCourses() {
+//   return `SELECT * FROM courses
+//             WHERE id = ?;`;
+// }
 
 function getCourses() {
   return `SELECT * FROM courses;`;
 }
 
+// function getModules() {
+//   return `SELECT * FROM modules
+//             WHERE course_id = ?;`;
+// }
+
 function getModules() {
-  return `SELECT * FROM modules
-            WHERE course_id = ?;`;
+  return `SELECT * FROM modules;`;
 }
 
+// function getContent() {
+//   return `SELECT * FROM content
+//             WHERE module_id = ?;`;
+// }
+
 function getContent() {
-  return `SELECT * FROM content 
-            WHERE module_id = ?;`;
+  return `SELECT * FROM content;`;
 }
 
 function addEnrolledCourses() {
@@ -122,17 +135,28 @@ function courseComplete() {
 }
 
 // ! NEW VERSIONS
-function userProgress() {
-  return `SELECT * FROM user_course_progress
-	        	WHERE user_id LIKE ? AND course_id LIKE ?;`;
-}
+// function userProgress() {
+//   return `SELECT * FROM user_course_progress
+// 	        	WHERE user_id LIKE ? AND course_id LIKE ?;`;
+// }
+
+// function userProgress() {
+//   return `SELECT
+//     enrolled_courses.user_id,
+//     enrolled_courses.course_id, enrolled_courses.course_title, enrolled_courses.image,
+//     GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids,
+//     IF(COUNT(*) = SUM(CASE WHEN user_course_progress.module_status = 'complete' THEN 1 ELSE 0 END), 'complete', 'incomplete') AS course_status
+// FROM users
+// JOIN sessions ON users.user_id = sessions.user_id
+// JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
+// JOIN user_course_progress ON users.user_id = user_course_progress.user_id
+// WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?
+// GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;`;
+// }
 
 function userProgress() {
-  return `SELECT
-    enrolled_courses.user_id,
-    enrolled_courses.course_id, enrolled_courses.course_title, enrolled_courses.image,
-    GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids,
-    IF(COUNT(*) = SUM(CASE WHEN user_course_progress.module_status = 'complete' THEN 1 ELSE 0 END), 'complete', 'incomplete') AS course_status
+  return `SELECT enrolled_courses.course_id, 
+    GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids
 FROM users
 JOIN sessions ON users.user_id = sessions.user_id
 JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
