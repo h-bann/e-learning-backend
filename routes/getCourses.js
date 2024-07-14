@@ -48,7 +48,7 @@ router.get("/getCourses", async (request, response) => {
       }
     });
 
-    response.send({ code: 1, course: courses });
+    response.send({ code: 1, courses: courses });
   }
 });
 
