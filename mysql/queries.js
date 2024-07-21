@@ -155,14 +155,12 @@ function courseComplete() {
 // }
 
 function userProgress() {
-  return `SELECT enrolled_courses.course_id, 
-    GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids
-FROM users
-JOIN sessions ON users.user_id = sessions.user_id
-JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
-JOIN user_course_progress ON users.user_id = user_course_progress.user_id
-WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?
-GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;`;
+  return `SELECT enrolled_courses.course_id, GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ' ) AS module_ids 
+            FROM users	
+              JOIN sessions ON users.user_id = sessions.user_id
+                JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
+                  JOIN user_course_progress ON enrolled_courses.course_id = user_course_progress.course_id
+                    WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
 }
 
 function moduleProgress() {
