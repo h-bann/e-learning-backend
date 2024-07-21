@@ -87,7 +87,7 @@ router.patch("/courseComplete", async (request, response) => {
 
 router.get("/userProgress", async (request, response) => {
   const { token, id } = request.headers;
-
+  console.log(id);
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
@@ -95,18 +95,18 @@ router.get("/userProgress", async (request, response) => {
   }
   const result = await mySQL(userProgress(), [token, Number(id)]);
 
-  // const duplicate = result[0].module_ids.map((item) => {
-  //   console.log(item);
-  // });
-  if (result < 1) {
+  console.log("line 98", result);
+  if (
+    result < 1 ||
+    result[0].course_id === null ||
+    result[0].module_ids === null
+  ) {
     return;
   }
-
   let newArray = result[0].module_ids
     .split(",")
     .map((str) => Number(str.trim()));
   result[0].module_ids = newArray;
-
   response.send({ code: 1, message: result[0] });
 });
 
