@@ -57,8 +57,16 @@ function getCourse() {
 //             WHERE id = ?;`;
 // }
 
+function getUserCourses() {
+  return `SELECT users.user_id, enrolled_courses.course_id, courses.course_title, courses.image, courses.more_info, courses.instructions FROM users
+          JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+          JOIN courses on enrolled_courses.course_id = courses.id
+            WHERE users.user_id LIKE ?;`;
+}
+
 function getCourses() {
-  return `SELECT * FROM courses;`;
+  return `SELECT * FROM courses
+            ;`;
 }
 
 // function getModules() {
@@ -214,6 +222,7 @@ module.exports = {
   deleteUser,
   deleteToken,
   getCourses,
+  getUserCourses,
   getCourse,
   getModules,
   getContent,

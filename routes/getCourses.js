@@ -6,6 +6,7 @@ const {
   getContent,
   getModules,
   getCourse,
+  getUserCourses,
   getUser,
 } = require("../mysql/queries");
 
@@ -22,31 +23,34 @@ router.get("/getCourses", async (request, response) => {
   }
   // if user logged in, access entirety of course
   if (user) {
+    // const courses = await mySQL(getUserCourses(), [user[0].user_id]);
     const courses = await mySQL(getCourses());
     const modules = await mySQL(getModules());
     const content = await mySQL(getContent());
-    // console.log(content);
-    const joinedCourses = {};
 
-    courses.forEach((course) => {
-      joinedCourses[course.id] = course;
-      course.modules = [];
-    });
-    const joinedModules = {};
+    // const joinedCourses = {};
 
-    modules.forEach((module) => {
-      if (joinedCourses[module.course_id]) {
-        joinedCourses[module.course_id].modules.push(module);
-        joinedModules[module.id] = module;
-        module.content = [];
-      }
-    });
+    // courses.forEach((course) => {
+    //   // joinedCourses[course.course_id] = course;
+    //   joinedCourses[course.id] = course;
+    //   console.log(course);
+    //   course.modules = [];
+    // });
+    // const joinedModules = {};
 
-    content.forEach((content) => {
-      if (joinedModules[content.module_id]) {
-        joinedModules[content.module_id].content.push(content);
-      }
-    });
+    // modules.forEach((module) => {
+    //   if (joinedCourses[module.course_id]) {
+    //     joinedCourses[module.course_id].modules.push(module);
+    //     joinedModules[module.id] = module;
+    //     module.content = [];
+    //   }
+    // });
+
+    // content.forEach((content) => {
+    //   if (joinedModules[content.module_id]) {
+    //     joinedModules[content.module_id].content.push(content);
+    //   }
+    // });
 
     response.send({ code: 1, courses: courses });
   }
