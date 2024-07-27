@@ -140,6 +140,7 @@ router.get("/userProgress", async (request, response) => {
   ) {
     return;
   }
+
   let newArray = result[0].module_ids
     .split(",")
     .map((str) => Number(str.trim()));
