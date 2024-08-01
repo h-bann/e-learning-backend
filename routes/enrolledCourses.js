@@ -123,7 +123,7 @@ router.patch("/courseComplete", async (request, response) => {
 
 router.get("/userProgress", async (request, response) => {
   const { token, id } = request.headers;
-
+  console.log(id);
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
@@ -131,13 +131,13 @@ router.get("/userProgress", async (request, response) => {
   }
   const result = await mySQL(userProgress(), [token, Number(id)]);
 
-  console.log("line 98", result);
+  console.log(result);
   if (
-    result < 1
-    // ||
-    // result[0].course_id === null ||
-    // result[0].module_ids === null
+    result < 1 ||
+    result[0].course_id === null ||
+    result[0].module_ids === null
   ) {
+    response.send({ code: 0, message: "No user progress" });
     return;
   }
 
