@@ -14,6 +14,7 @@ const {
   moduleProgress,
   courseCompletion,
   userProgress,
+  deleteUserProgress,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -123,7 +124,6 @@ router.patch("/courseComplete", async (request, response) => {
 
 router.get("/userProgress", async (request, response) => {
   const { token, id } = request.headers;
-  console.log(id);
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
@@ -131,7 +131,6 @@ router.get("/userProgress", async (request, response) => {
   }
   const result = await mySQL(userProgress(), [token, Number(id)]);
 
-  console.log(result);
   if (
     result < 1 ||
     result[0].course_id === null ||
@@ -140,7 +139,6 @@ router.get("/userProgress", async (request, response) => {
     response.send({ code: 0, message: "No user progress" });
     return;
   }
-
   let newArray = result[0].module_ids
     .split(",")
     .map((str) => Number(str.trim()));
@@ -194,7 +192,11 @@ router.patch("/courseCompletion", async (request, response) => {
     response.send({ code: 1, message: "Course finished" });
   } catch (error) {
     if (error) {
-      response.send({ code: 0, message: "Error completing course" });
+      response.send({
+        code: 0,
+        message: "Error completing course",
+        error: error,
+      });
     }
   }
 });
@@ -204,11 +206,8 @@ router.delete("/deleteEnrolled", async (request, response) => {
   const courseId = request.headers.id;
 
   try {
-    await mySQL(deleteEnrolledCourse(), [
-      token,
-      Number(courseId),
-      Number(courseId),
-    ]);
+    await mySQL(deleteEnrolledCourse(), [token, Number(courseId)]);
+    await mySQL(deleteUserProgress(), [token, Number(courseId)]);
     response.send({ code: 1, message: "Successfully left course" });
   } catch (error) {
     if (error) {

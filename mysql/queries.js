@@ -58,7 +58,7 @@ function getCourse() {
 // }
 
 function getUserCourses() {
-  return `SELECT users.user_id, enrolled_courses.course_id, courses.course_title, courses.image, courses.more_info, courses.instructions FROM users
+  return `SELECT users.user_id, enrolled_courses.course_id, courses.course_title, enrolled_courses.course_status, courses.image, courses.more_info, courses.instructions FROM users
           JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
           JOIN courses on enrolled_courses.course_id = courses.id
             WHERE users.user_id LIKE ?;`;
@@ -123,11 +123,17 @@ function getEnrolledCourses() {
 // }
 
 function deleteEnrolledCourse() {
-  return `DELETE enrolled_courses, user_course_progress FROM users
+  return `DELETE enrolled_courses FROM users
             JOIN sessions on users.user_id = sessions.user_id
             JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
+              WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
+}
+
+function deleteUserProgress() {
+  return `DELETE user_course_progress FROM users
+            JOIN sessions on users.user_id = sessions.user_id
             JOIN user_course_progress on users.user_id = user_course_progress.user_id
-              WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ? AND user_course_progress.course_id LIKE ?;`;
+              WHERE sessions.token LIKE ? AND user_course_progress.course_id LIKE ?;`;
 }
 
 function courseProgress() {
@@ -180,7 +186,7 @@ function moduleProgress() {
 
 function courseCompletion() {
   return `UPDATE enrolled_courses
-            SET status = ?
+            SET course_status = ?
               WHERE user_id = ? AND course_id = ?;`;
 }
 
@@ -229,6 +235,7 @@ module.exports = {
   addEnrolledCourses,
   getEnrolledCourses,
   deleteEnrolledCourse,
+  deleteUserProgress,
   courseProgress,
   courseComplete,
 
