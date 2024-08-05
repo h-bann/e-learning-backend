@@ -8,7 +8,7 @@ const { rateLimit } = require("express-rate-limit");
 
 const rateLimiter = rateLimit({
   windowMs: 900000, // 15 mins
-  limit: 1000, // number of requests
+  limit: 100000, // number of requests
 });
 app.use(rateLimiter);
 
