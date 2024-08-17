@@ -163,13 +163,16 @@ router.patch("/moduleProgress", async (request, response) => {
       moduleId,
       "complete",
     ]);
-    response.send({ code: 1, message: "Course progress recorded" });
+    response.send({ code: 1, message: "Module progress recorded" });
   } catch (error) {
     if ((error.code = "ER_DUP_ENTRY")) {
       response.send({ code: 0, message: "Module already completed" });
       return;
     }
-    response.send({ code: 0, message: "Error, sorry" });
+    response.send({
+      code: 0,
+      message: "Error, unble to complete module. Please try again later",
+    });
   }
 });
 
