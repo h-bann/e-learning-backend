@@ -22,9 +22,9 @@ router.post("/", async (request, response) => {
 
   const cleanedMessage = sanitizeHTML(message, { allowedTags: ["div", "p"] });
 
-  // sendEmail(contactForm(cleanedMessage), email, [
-  //   { email: "help@we-learn.uk" },
-  // ]);
+  sendEmail(contactForm(cleanedMessage), email, [
+    { email: "jolie50@ethereal.email" },
+  ]);
 
   response.send({ code: 1, message: "Message sent" });
 });
