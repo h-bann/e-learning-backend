@@ -52,11 +52,6 @@ function getCourse() {
             WHERE id = ?;`;
 }
 
-// function getCourses() {
-//   return `SELECT * FROM courses
-//             WHERE id = ?;`;
-// }
-
 function getUserCourses() {
   return `SELECT users.user_id, enrolled_courses.course_id, courses.course_title, enrolled_courses.course_status, courses.image, courses.more_info, courses.instructions FROM users
           JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
@@ -69,19 +64,9 @@ function getCourses() {
             ;`;
 }
 
-// function getModules() {
-//   return `SELECT * FROM modules
-//             WHERE course_id = ?;`;
-// }
-
 function getModules() {
   return `SELECT * FROM modules;`;
 }
-
-// function getContent() {
-//   return `SELECT * FROM content
-//             WHERE module_id = ?;`;
-// }
 
 function getContent() {
   return `SELECT * FROM content;`;
@@ -100,27 +85,6 @@ function getEnrolledCourses() {
             JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
               WHERE token LIKE ?;`;
 }
-
-// function getEnrolledCourses() {
-//   return `SELECT enrolled_courses.*, user_course_progress.module_id, user_course_progress.module_status FROM users
-//             JOIN sessions on users.user_id = sessions.user_id
-//             JOIN enrolled_courses on users.user_id = enrolled_courses.user_id
-//             JOIN user_course_progress on users.user_id = user_course_progress.user_id
-//               WHERE token LIKE ?;`;
-// }
-
-// function getEnrolledCourses() {
-//   return `SELECT
-//     enrolled_courses.user_id, enrolled_courses.course_status, enrolled_courses.course_title, enrolled_courses.image,
-//     enrolled_courses.course_id,
-//     GROUP_CONCAT(user_course_progress.module_id, ':', user_course_progress.module_status SEPARATOR ', ') AS module_statuses
-// FROM users
-// JOIN sessions ON users.user_id = sessions.user_id
-// JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
-// JOIN user_course_progress ON users.user_id = user_course_progress.user_id
-// WHERE sessions.token LIKE ?
-// GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;;`;
-// }
 
 function deleteEnrolledCourse() {
   return `DELETE enrolled_courses FROM users
@@ -148,26 +112,6 @@ function courseComplete() {
                WHERE user_id = ? AND course_id = ?;`;
 }
 
-// ! NEW VERSIONS
-// function userProgress() {
-//   return `SELECT * FROM user_course_progress
-// 	        	WHERE user_id LIKE ? AND course_id LIKE ?;`;
-// }
-
-// function userProgress() {
-//   return `SELECT
-//     enrolled_courses.user_id,
-//     enrolled_courses.course_id, enrolled_courses.course_title, enrolled_courses.image,
-//     GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ') AS module_ids,
-//     IF(COUNT(*) = SUM(CASE WHEN user_course_progress.module_status = 'complete' THEN 1 ELSE 0 END), 'complete', 'incomplete') AS course_status
-// FROM users
-// JOIN sessions ON users.user_id = sessions.user_id
-// JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
-// JOIN user_course_progress ON users.user_id = user_course_progress.user_id
-// WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?
-// GROUP BY enrolled_courses.user_id, enrolled_courses.course_id;`;
-// }
-
 function userProgress() {
   return `SELECT enrolled_courses.course_id, GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ' ) AS module_ids 
             FROM users	
@@ -175,6 +119,16 @@ function userProgress() {
                 JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
                   JOIN user_course_progress ON enrolled_courses.course_id = user_course_progress.course_id
                     WHERE sessions.token LIKE ? AND enrolled_courses.course_id LIKE ?;`;
+}
+
+function progressBar() {
+  return `SELECT enrolled_courses.course_id, GROUP_CONCAT(user_course_progress.module_id ORDER BY user_course_progress.module_id SEPARATOR ', ' ) AS module_ids 
+            FROM users	
+              JOIN sessions ON users.user_id = sessions.user_id
+                JOIN enrolled_courses ON users.user_id = enrolled_courses.user_id
+                  JOIN user_course_progress ON enrolled_courses.course_id = user_course_progress.course_id
+                    WHERE sessions.token LIKE ? 
+                    GROUP BY enrolled_courses.course_id;`;
 }
 
 function moduleProgress() {
@@ -238,8 +192,8 @@ module.exports = {
   deleteUserProgress,
   courseProgress,
   courseComplete,
-
   userProgress,
+  progressBar,
   moduleProgress,
   courseCompletion,
   insertCourses,

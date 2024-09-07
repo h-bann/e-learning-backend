@@ -15,6 +15,7 @@ const {
   courseCompletion,
   userProgress,
   deleteUserProgress,
+  progressBar,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
 
@@ -114,6 +115,23 @@ router.get("/userProgress", async (request, response) => {
     .map((str) => Number(str.trim()));
   result[0].module_ids = newArray;
   response.send({ code: 1, message: result[0] });
+});
+
+router.get("/progressBar", async (request, response) => {
+  const { token, id } = request.headers;
+  const user = await mySQL(getUser(), [token]);
+  if (user < 1) {
+    response.send({ code: 0, message: "No matching account" });
+    return;
+  }
+
+  const resultAsStrings = await mySQL(progressBar(), [token]);
+
+  const resultAsArrays = resultAsStrings.map((item) => {
+    return { ...item, module_ids: item.module_ids.split(", ").map(Number) };
+  });
+
+  response.send({ code: 1, message: resultAsArrays });
 });
 
 router.patch("/moduleProgress", async (request, response) => {
