@@ -63,7 +63,6 @@ router.get("/getEnrolledCourses", async (request, response) => {
   }
 });
 
-// ! NOT NEEDED
 router.patch("/enrolled", async (request, response) => {
   const { token } = request.headers;
   const user = await mySQL(getUser(), [token]);
@@ -91,35 +90,6 @@ router.patch("/enrolled", async (request, response) => {
     image,
   ]);
   response.send({ code: 1, message: "Enrolled on course" });
-});
-// ! NOT NEEDED
-router.patch("/courseProgress", async (request, response) => {
-  const { token } = request.headers;
-  const { moduleId, courseId } = request.body;
-
-  const user = await mySQL(getUser(), [token]);
-  if (user < 1) {
-    response.send({ code: 0, message: "No matching account" });
-    return;
-  }
-  await mySQL(courseProgress(), [
-    Number(moduleId),
-    user[0].user_id,
-    Number(courseId),
-  ]);
-  response.send({ code: 1, message: "Course progress recorded" });
-});
-// ! NOT NEEDED
-router.patch("/courseComplete", async (request, response) => {
-  const { token } = request.headers;
-  const { courseId } = request.body;
-
-  const user = await mySQL(getUser(), [token]);
-  if (user < 1) {
-    response.send({ code: 0, message: "No matching account" });
-  }
-
-  await mySQL(courseComplete(), ["true", user[0].user_id, Number(courseId)]);
 });
 
 router.get("/userProgress", async (request, response) => {
@@ -187,11 +157,7 @@ router.patch("/courseCompletion", async (request, response) => {
   }
 
   try {
-    await mySQL(courseCompletion(), [
-      "complete",
-      user[0].user_id,
-      Number(courseId),
-    ]);
+    await mySQL(courseCompletion(), [1, user[0].user_id, Number(courseId)]);
     response.send({ code: 1, message: "Course finished" });
   } catch (error) {
     if (error) {
