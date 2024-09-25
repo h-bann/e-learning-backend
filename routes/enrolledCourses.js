@@ -178,13 +178,16 @@ router.patch("/courseCompletion", async (request, response) => {
     await mySQL(courseCompletion(), [1, user[0].user_id, Number(courseId)]);
     response.send({ code: 1, message: "Course finished" });
   } catch (error) {
-    if (error) {
-      response.send({
-        code: 0,
-        message: "Error completing course",
-        error: error,
-      });
+    console.log(error);
+    if ((error.code = "ER_DUP_ENTRY")) {
+      response.send({ code: 0, message: "Course already completed" });
+      return;
     }
+    response.send({
+      code: 0,
+      message: "Error completing course",
+      error: error,
+    });
   }
 });
 

@@ -9,7 +9,8 @@ const {
 const router = express.Router();
 
 router.patch("/update", async (request, response) => {
-  let { email, username, password } = request.body;
+  console.log(request.body);
+  let { email, username, currentPassword, password } = request.body;
   const { token } = request.headers;
 
   try {
@@ -64,13 +65,22 @@ router.patch("/update", async (request, response) => {
     }
     // if password entered, sha password
     if (password) {
+      currentPassword = sha256(currentPassword + "eLearningApp");
       password = sha256(password + "eLearningApp");
+      if (currentPassword !== user[0].password) {
+        response.send({
+          code: 2,
+          message: "Current password is incorrect",
+        });
+        return;
+      }
       // if password same as database - error
       if (password === user[0].password) {
         response.send({
           code: 0,
           message: "This is the same as your current password",
         });
+
         return;
       }
       // else, change database record
