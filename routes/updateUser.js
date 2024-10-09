@@ -9,7 +9,6 @@ const {
 const router = express.Router();
 
 router.patch("/update", async (request, response) => {
-  console.log(request.body);
   let { email, username, currentPassword, password } = request.body;
   const { token } = request.headers;
 
