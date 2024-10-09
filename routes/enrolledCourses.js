@@ -79,7 +79,7 @@ router.patch("/enrolled", async (request, response) => {
       return item.course_title.includes(course_title);
     });
     if (duplicate) {
-      response.send({ code: 1, message: "Already enrolled" });
+      response.send({ code: 0, message: "Already enrolled" });
       return;
     }
   }
