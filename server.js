@@ -11,12 +11,22 @@ const rateLimiter = rateLimit({
   windowMs: 900000, // 15 mins
   limit: 100000, // number of requests
 });
+app.use((req, res, next) => {
+  console.log(req.headers);
+  console.log("Origin:", req.headers.origin);
+  next();
+});
 
-app.use(cors());
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://welearning.uk"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
+app.use(cors(corsOptions));
+
 app.use(rateLimiter);
 
 app.use(helmet());
-app.use(express.static("public"));
+app.use(express.static("public_html"));
 
 app.use(express.json());
 
@@ -30,10 +40,9 @@ app.use("/courses", require("./routes/getCourses"));
 app.use("/courses", require("./routes/enrolledCourses"));
 app.use("/contact", require("./routes/contact"));
 
-// app.use((err, req, res, next) => {
-//   console.error(err.stack); // Log the error stack for debugging
-//   res.status(500).send("Something broke!"); // Respond with a generic error message
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public_html", "index.html"));
+});
 
 const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
