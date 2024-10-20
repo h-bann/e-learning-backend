@@ -172,6 +172,12 @@ function insertContent() {
                     (?,?,?);`;
 }
 
+function getPrices(placeholders) {
+  return `SELECT price FROM product_prices
+              JOIN courses on product_prices.course_id = courses.id
+                WHERE courses.id IN (${placeholders});`;
+}
+
 module.exports = {
   addUser,
   getUser,
@@ -200,4 +206,5 @@ module.exports = {
   insertModules,
   insertSubModules,
   insertContent,
+  getPrices,
 };

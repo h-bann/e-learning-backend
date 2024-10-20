@@ -23,7 +23,6 @@ const router = express.Router();
 
 router.get("/getEnrolledCourses", async (request, response) => {
   const { token } = request.headers;
-
   const user = await mySQL(getUser(), [token]);
 
   // if user not logged in, only access basic course info
@@ -59,8 +58,7 @@ router.get("/getEnrolledCourses", async (request, response) => {
         joinedModules[content.module_id].content.push(content);
       }
     });
-
-    response.send({ code: 1, enrolledCourses: courses });
+    response.send({ code: 1, courses: courses });
   }
 });
 
@@ -71,6 +69,7 @@ router.patch("/enrolled", async (request, response) => {
     response.send({ code: 0, message: "No matching account" });
     return;
   }
+  console.log(user);
   const enrolledCourses = await mySQL(getEnrolledCourses(), [token]);
   const { course_title, course_id, image } = request.body;
 
@@ -118,7 +117,7 @@ router.get("/userProgress", async (request, response) => {
 });
 
 router.get("/progressBar", async (request, response) => {
-  const { token, id } = request.headers;
+  const { token } = request.headers;
   const user = await mySQL(getUser(), [token]);
   if (user < 1) {
     response.send({ code: 0, message: "No matching account" });
@@ -126,7 +125,10 @@ router.get("/progressBar", async (request, response) => {
   }
 
   const resultAsStrings = await mySQL(progressBar(), [token]);
-
+  if (resultAsStrings < 1) {
+    response.send({ code: 0, message: "No progress to return" });
+    return;
+  }
   const resultAsArrays = resultAsStrings.map((item) => {
     return { ...item, module_ids: item.module_ids.split(", ").map(Number) };
   });
