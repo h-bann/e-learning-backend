@@ -10,9 +10,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function sendEmail(payload, sender, to) {
+async function sendEmail(payload, sender, to) {
   const mailOptions = {
-    from: sender === undefined ? "harrybannister@hotmail.com" : sender,
+    from: sender === undefined ? process.env.EMAIL_USER : sender,
     to: to[0].email,
     subject: payload.subject,
     text: `${payload.content}`,
@@ -21,7 +21,7 @@ function sendEmail(payload, sender, to) {
 
   try {
     transporter.sendMail(mailOptions, (error, info) => {
-      console.log(error, info);
+      // console.log(info);
     });
   } catch (error) {
     console.error("Error sending email", error);

@@ -18,7 +18,6 @@ const {
   progressBar,
 } = require("../mysql/queries");
 const mySQL = require("../mysql/driver");
-
 const router = express.Router();
 
 router.get("/getEnrolledCourses", async (request, response) => {

@@ -5,12 +5,11 @@ const { random } = require("../utils");
 const mySQL = require("../mysql/driver");
 const { addUser, insertToken } = require("../mysql/queries");
 const { sendEmail } = require("../email/nodemailer");
-const { welcomeEmail } = require("../email/templates");
+const { welcomeEmail, verifyEmail } = require("../email/templates");
 const sanitizeHTML = require("sanitize-html"); // prevent cross-site scripting attack by cleaning html
 
 router.post("/addUser", async (request, response) => {
   let { email, username, password } = request.body;
-
   // *  check that there is an email, username or password
   if (!email) {
     response.send({ code: 0, message: "Email missing" });
@@ -35,7 +34,11 @@ router.post("/addUser", async (request, response) => {
 
     const cleanedEmail = sanitizeHTML(email);
 
-    // sendEmail(welcomeEmail(cleanedEmail), undefined, [{ email, name: "Test" }]);
+    const verificationLink = `http://localhost:5173/verify-email?token=${token}`;
+
+    await sendEmail(verifyEmail(cleanedEmail, verificationLink), undefined, [
+      { email, name: "Test" },
+    ]);
 
     response.send({
       code: 1,
@@ -44,7 +47,7 @@ router.post("/addUser", async (request, response) => {
     });
   } catch (error) {
     console.log(error.code);
-    if ((error.code = "ER_DUP_ENTRY")) {
+    if (error.code === "ER_DUP_ENTRY") {
       response.send({
         code: 0,
         message: "This username or email is already taken",

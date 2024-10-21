@@ -25,6 +25,7 @@ app.use(express.static("public_html"));
 app.use(express.json());
 
 app.use("/users", require("./routes/addUser"));
+app.use("/verification", require("./routes/emailVerification"));
 app.use("/users", require("./routes/deleteUser"));
 app.use("/users", require("./routes/getUser"));
 app.use("/users", require("./routes/updateUser"));

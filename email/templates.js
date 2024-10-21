@@ -8,6 +8,15 @@ const welcomeEmail = (email) => {
   };
 };
 
+const verifyEmail = (email, verificationLink) => {
+  return {
+    subject: "Verify your email",
+    content: `<div>
+                <h4>Hi, ${email}. Click <a href="${verificationLink}">here</a> to verify your email</h4>          
+    </div>`,
+  };
+};
+
 const accountDelete = (email) => {
   return {
     subject: `Account deleted`,
@@ -36,4 +45,4 @@ const contactForm = (message) => {
   };
 };
 
-module.exports = { welcomeEmail, accountDelete, contactForm };
+module.exports = { welcomeEmail, verifyEmail, accountDelete, contactForm };
